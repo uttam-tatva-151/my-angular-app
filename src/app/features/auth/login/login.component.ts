@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModernCardComponent } from '../../../shared/components/modern-card/modern-card.component';
-import { InfoPanelComponent } from '../info-panel/info-panel.component';
-import { AnimatedCirclesComponent } from '../../../core/components/animated-circles/animated-circles.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PasswordManagerService } from './../../../core/services/PasswordManagerService/PasswordManager.service';
+import { ModernCardComponent } from '../../../shared/components/modern-card/modern-card.component';
+import { InfoPanelComponent } from '../info-panel/info-panel.component';
+import { AnimatedCirclesComponent } from '../../../shared/components/animated-circles/animated-circles.component';
+import { EmailManagerService } from '../../../core/services/EmailManagerService/EmailManager.service';
 
 @Component({
   selector: 'app-login',
@@ -22,22 +24,30 @@ export class LoginComponent {
   passwordInvalid = false;
 
   circlesConfig = []
-  constructor(private router: Router) {}
+  constructor(private router: Router, private emailService: EmailManagerService,private passwordManager : PasswordManagerService) {}
 
+  ngOnInit(){
+    this.email = this.emailService.getEmail();
+    this.emailService.clear();
+  }
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
   onSubmit() {
-    this.emailInvalid = !this.email || !/^\S+@\S+\.\S+$/.test(this.email);
-    this.passwordInvalid = !this.password;
+    this.emailInvalid = !this.emailService.isValid(this.email);
+    this.passwordInvalid = !this.passwordManager.isValid(this.password);
     if (!this.emailInvalid && !this.passwordInvalid) {
-      // Simulate login, real apps call service here
       alert('Login successful! (Demo)');
     }
   }
 
   toForgotPassword() {
+    if (this.emailService.isValid(this.email)) {
+      this.emailService.setEmail(this.emailService.normalize(this.email));
+    } else {
+      this.emailService.clear();
+    }
     this.router.navigate(['/auth/forgot-password']);
   }
 
