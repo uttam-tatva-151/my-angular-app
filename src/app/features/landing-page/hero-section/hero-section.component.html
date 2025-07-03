@@ -8,15 +8,16 @@
         <div class="heroAnimatedSubtitle mb-4">
           <span id="heroSubtitleWrapper">
             <span #heroSubtitle id="heroSubtitle"></span>
-            <span class="brandGradientText">CashCanvas</span>.
+            <span class="brandGradientText fs-3 mt-4">CashCanvas</span>.
           </span>
         </div>
-        <a routerLink="/register" class="btn btn-lg btnPrimary px-4 animate__animated animate__fadeInUp animate__delay-2s">
-          Get Started Free <i class="bi bi-arrow-right ms-2"></i>
-        </a>
+        <app-btn-primary link="/auth/login" label="Get Started Free "
+          extraClasses="me-2 px-4 py-3 animate__animated animate__fadeInUp animate__delay-1s" iconClass="bi bi-arrow-right ms-2">
+          <i class="bi bi-arrow-right ms-2"></i></app-btn-primary>
       </div>
       <div class="col-md-6 text-center mt-4 mt-md-0 heroImgCol">
-        <img src="assets/mockup_dashboard.png" alt="CashCanvas Dashboard Mockup" class="img-fluid rounded shadow heroMockupImg" />
+        <img src="assets/images/landing-page/mockup_dashboard.png" alt="CashCanvas Dashboard Mockup"
+          class="img-fluid rounded shadow heroMockupImg rounded-4" />
         <p class="small text-muted mt-2">Sample dashboard: track, analyze, succeed!</p>
       </div>
     </div>

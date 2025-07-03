@@ -1,3 +1,12 @@
-<p>
-  landing-navbar works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm position-fixed w-100" id="mainNavbar">
+  <div class="container">
+    <a class="navbarBrand d-flex align-items-center text-decoration-none" (click)="scrollToTop()">
+      <img src="assets/logo/Logo_for_Cash_Canvas.png" alt="CashCanvas Logo" width="40" height="40" class="rounded-circle me-2">
+      <span class="fw-bold brandGradientText fs-4 cursor-pointer">CashCanvas</span>
+    </a>
+    <div>
+      <app-btn-outline-primary link="/auth/login" label="Login" extraClasses="me-2"></app-btn-outline-primary>
+      <app-btn-primary link="/auth/register" label="Sign Up"></app-btn-primary>
+    </div>
+  </div>
+</nav>

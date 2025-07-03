@@ -8,3 +8,18 @@
   font-size: 1.6rem;
   letter-spacing: -1px;
 }
+.navbarBrand{
+  cursor: pointer;
+}
+.brandGradientText {
+  font-weight: 600;
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  letter-spacing: .01em;
+  background: linear-gradient(90deg, #ee8afb 10%, #8e71fb 70%, #4376fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px #8e71fb33);
+  transition: all 0.4s cubic-bezier(.87,-0.41,.19,1.44);
+}

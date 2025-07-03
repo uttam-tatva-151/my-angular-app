@@ -73,3 +73,15 @@
     padding: 2.1rem 0.8rem !important;
   }
 }
+@keyframes shapeFloat1 {
+  0% { transform: translateY(0);}
+  100% { transform: translateY(-14px);}
+}
+@keyframes shapeFloat2 {
+  0% { transform: translateY(0);}
+  100% { transform: translateY(-10px);}
+}
+@keyframes shapeFloat3 {
+  0% { transform: scaleX(1);}
+  100% { transform: scaleX(1.3);}
+}

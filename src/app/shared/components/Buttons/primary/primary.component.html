@@ -1,0 +1,9 @@
+<a [routerLink]="link" class="btn btnPrimary" [ngClass]="extraClasses" *ngIf="link; else buttonOnly">
+  {{ label }} <i *ngIf="iconClass" [ngClass]="iconClass"></i>
+</a>
+
+<ng-template #buttonOnly>
+  <button type="button" class="btn btnPrimary" [ngClass]="extraClasses">
+    {{ label }} <i *ngIf="iconClass" [ngClass]="iconClass"></i>
+  </button>
+</ng-template>

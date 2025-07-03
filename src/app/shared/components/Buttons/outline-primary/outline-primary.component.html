@@ -1,0 +1,13 @@
+<a [routerLink]="link"
+    class="btn btnOutlinePrimary"
+      [ngClass]="extraClasses"
+       *ngIf="link; else buttonOnly">
+      <ng-content></ng-content>{{ label }}
+</a>
+<ng-template #buttonOnly>
+    <button type="button"
+        class="btn btnOutlinePrimary"
+        [ngClass]="extraClasses">
+       <ng-content></ng-content>{{ label }}
+      </button>
+</ng-template>
