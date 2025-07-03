@@ -1,0 +1,62 @@
+#animatedBg {
+  position: fixed;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: linear-gradient(110deg, #f3f0ff 60%, #dbeafe 100%);
+  animation: gradientBgMove 20s alternate infinite;
+}
+@keyframes gradientBgMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 100vw 100vh; }
+}
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(4px);
+  pointer-events: none;
+}
+.circleOne {
+  width: 340px;
+  height: 340px;
+  background: #8e71fb;
+  top: 5%;
+  left: 5%;
+  animation: circleMove1 18s linear infinite alternate;
+}
+.circleTwo {
+  width: 200px;
+  height: 200px;
+  background: #4376fa;
+  top: 60%;
+  left: 70%;
+  animation: circleMove2 14s linear infinite alternate;
+}
+.circleThree {
+  width: 150px;
+  height: 150px;
+  background: #ee8afb;
+  top: 40%;
+  left: 35%;
+  animation: circleMove3 22s linear infinite alternate;
+}
+@keyframes circleMove1 {
+  0% { top: 5%; left: 5%;}
+  100% { top: 15%; left: 15%;}
+}
+@keyframes circleMove2 {
+  0% { top: 60%; left: 70%;}
+  100% { top: 55%; left: 60%;}
+}
+@keyframes circleMove3 {
+  0% { top: 40%; left: 35%;}
+  100% { top: 45%; left: 50%;}
+}
+/* Responsive for hiding circles */
+@media (max-width: 991px) {
+  .circleOne, .circleTwo, .circleThree { display: none; }
+}

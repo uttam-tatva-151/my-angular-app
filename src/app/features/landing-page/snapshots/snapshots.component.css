@@ -1,0 +1,21 @@
+.snapshotsSection {
+  background: none;
+  z-index: 2;
+}
+.mockupCard {
+  border-radius: 18px;
+  background: #fff;
+  transition: box-shadow 0.25s, transform 0.2s;
+}
+.mockupCard:hover {
+  box-shadow: 0 8px 32px #8e71fb33;
+  transform: translateY(-4px) scale(1.04) rotate(-1deg);
+}
+.mockupCard img {
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 4px 16px #8e71fb11;
+  border-radius: 14px;
+}
+@media (max-width: 991px) {
+  .mockupCard { margin-bottom: 1.5rem !important; }
+}

@@ -1,0 +1,10 @@
+#mainNavbar {
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+#mainNavbar .navbarBrand .brandGradientText {
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -1px;
+}
