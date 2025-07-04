@@ -26,6 +26,12 @@
       <form (ngSubmit)="onSubmit()" novalidate>
         <div class="mb-3 input-group">
           <span class="input-group-text inputGroupTextIconInput"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control form-control-lg inputBg" [(ngModel)]="userName" name="userName"
+            placeholder="User Name" required />
+          <div *ngIf="userNameInvalid" class="invalid-feedback w-100 text-start">Please enter a valid user name.</div>
+        </div>
+        <div class="mb-3 input-group">
+          <span class="input-group-text inputGroupTextIconInput"><i class="bi bi-envelope"></i></span>
           <input type="email" class="form-control form-control-lg inputBg" [(ngModel)]="email" name="email"
             placeholder="Email address" required [ngClass]="{'is-invalid': emailInvalid}" />
           <div *ngIf="emailInvalid" class="invalid-feedback w-100 text-start">Please enter a valid email address.</div>
@@ -41,32 +47,24 @@
           <div *ngIf="passwordInvalid" class="invalid-feedback w-100 text-start">Password must be at least 6 characters.
           </div>
         </div>
-        <div class="mb-3 input-group passwordInputGroup">
-          <span class="input-group-text inputGroupTextIconInput"><i class="bi bi-shield-lock"></i></span>
-          <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control form-control-lg inputBg z-1"
-            [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required
-            [ngClass]="{'is-invalid': confirmPasswordInvalid}" />
-          <button type="button" tabindex="-1" class="btn eyeBtn" (click)="toggleConfirmPassword()"
-            aria-label="Show password">
-            <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-          </button>
-          <div *ngIf="confirmPasswordInvalid" class="invalid-feedback w-100 text-start">Passwords do not match.</div>
-        </div>
         <div
           class="d-flex justify-content-between align-items-center mb-3 animate__animated animate__fadeIn animate__delay-1s">
           <div class="remembermeToggle">
-            <input class="remembermeCheckbox" type="checkbox" id="registerRememberMe" [(ngModel)]="rememberMe"
-              name="registerRememberMe" hidden>
-            <label class="remembermeSwitch" for="registerRememberMe">
+            <input class="remembermeCheckbox" type="checkbox" id="registerTerms" [(ngModel)]="termsAccepted"
+              name="registerTerms" hidden>
+            <label class="remembermeSwitch" for="registerTerms">
               <span class="slider"></span>
             </label>
-            <label class="remembermeLabel ms-2 mb-0" for="registerRememberMe">
-              Remember Me
+            <label class="remembermeLabel ms-2 mb-0" for="registerTerms">
+              I accept the <a href="/terms" class="forgotLink" target="_blank">T&C</a>
             </label>
           </div>
           <a (click)="toForgotPassword()" class="forgotLink small" style="cursor:pointer">Forgot password?</a>
         </div>
-        <button type="submit" class="btn registerBtn w-100 mb-2">
+        <div *ngIf="termsInvalid" class="invalid-feedback w-100 text-start mb-2 d-block">
+          You must accept the Terms & Conditions.
+        </div>
+        <button type="submit" [disabled]="!termsAccepted" class="btn registerBtn w-100 mb-2">
           REGISTER
         </button>
         <div class="text-center">
