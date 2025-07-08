@@ -1,0 +1,16 @@
+<div class="custom-toast" [ngClass]="status">
+  <div class="header">
+    <i [ngClass]="iconClass"></i>
+    <strong>{{ title }}</strong>
+    <span class="close" (click)="onClose()">&times;</span>
+  </div>
+  <div class="message">{{ message }}</div>
+  <div *ngIf="errors?.length" class="details-toggle" (click)="expand = !expand">
+    <span>Details</span>
+    <i [ngClass]="expand ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+  </div>
+  <ul *ngIf="expand && errors?.length" class="error-list">
+    <li *ngFor="let err of errors">{{ err }}</li>
+  </ul>
+  <div *ngIf="progressBar" class="progress-bar"></div>
+</div>

@@ -25,3 +25,13 @@
   scrollbar-color: #8e71fb #f5f5fa; /* thumb color, track color */
   scrollbar-width: thin;
 }
+
+.hyperLink {
+  color: #b5b6d1;
+  text-decoration: underline;
+  transition: color 0.18s;
+  cursor: pointer;
+}
+.hyperLink:hover {
+  color: #8e71fb;
+}

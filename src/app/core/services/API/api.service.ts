@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,24 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // Example: register a new user
-  registerUser(request: any) {
+  // reset password
+  resetPassword(request: string): Observable<any>{
+    return this.http.post(`${this.baseUrl}/Authentication/reset-password-link`, request, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  // register a new user
+  registerUser(request: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/Authentication/register`, request, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  // Example: login
-  login(credentials: any) {
-    return this.http.post(`${this.baseUrl}/authentication/login`, credentials);
+  // login
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Authentication/login`, credentials, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
 }

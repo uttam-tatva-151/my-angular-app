@@ -20,6 +20,7 @@
   padding: 2rem 2.5rem;
   z-index: 1;
 }
+
 /* Responsive */
 @media (max-width: 900px) {
   .modernCard { max-width: 99vw; }

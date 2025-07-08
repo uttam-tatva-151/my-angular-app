@@ -1,7 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LandingFooterComponent } from './landing-footer.component';
 
@@ -9,7 +7,7 @@ describe('LandingFooterComponent', () => {
   let component: LandingFooterComponent;
   let fixture: ComponentFixture<LandingFooterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LandingFooterComponent ]
     })

@@ -1,0 +1,10 @@
+<div *ngIf="toast" class="toast-container">
+  <app-custom-toast
+    [title]="toast.title"
+    [message]="toast.message"
+    [status]="toast.status"
+    [errors]="toast.errors || []"
+    [progressBar]="toast.progressBar ?? false"
+    (close)="closeToast()"
+  ></app-custom-toast>
+</div>

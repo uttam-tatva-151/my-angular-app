@@ -1,12 +1,9 @@
 <app-modern-card>
   <!-- Left Info Panel -->
   <div left-panel>
-    <app-info-panel
-      titlePrefix = "Welcome to"
-      titleHighlight="CashCanvas"
-      subtitle="Expense Management System"
-      description="Effortlessly manage your finances, track expenses, and achieve your financial goals with our intuitive and secure platform."
-    ></app-info-panel>
+    <app-info-panel titlePrefix="Welcome to" titleHighlight="CashCanvas" subtitle="Expense Management System"
+      description="Effortlessly manage your finances, track expenses, and achieve your financial goals with our intuitive and secure platform.">
+    </app-info-panel>
   </div>
   <!-- Right Login Panel -->
   <div right-panel>
@@ -17,27 +14,35 @@
           style="max-width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 2px 8px #8e71fb22; background: #eaeaea;" />
         <h6 class="text-center textLogin animate__animated animate__fadeInDown fs-6 mb-0">USER LOGIN</h6>
       </div>
-      <form (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="loginForm" novalidate (ngSubmit)="onLogin()">
         <div class="mb-3 input-group">
           <span class="input-group-text inputGroupTextIconInput"><i class="bi bi-person"></i></span>
           <input type="email" class="form-control form-control-lg inputBg"
-            [(ngModel)]="email" name="email" placeholder="Email address"
-            required [ngClass]="{'is-invalid': emailInvalid}" />
-          <div *ngIf="emailInvalid" class="invalid-feedback w-100 text-start">Please enter a valid email address.</div>
+            formControlName="email"
+            placeholder="Email address" required
+            [ngClass]="{'is-invalid': email?.invalid && (email?.touched || email?.dirty)}" />
+          <div *ngIf="email?.invalid && (email?.touched || email?.dirty)" class="invalid-feedback w-100 text-start">
+            Please enter a valid email address.
+          </div>
         </div>
         <div class="mb-3 input-group passwordInputGroup">
           <span class="input-group-text inputGroupTextIconInput"><i class="bi bi-lock"></i></span>
           <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-lg inputBg z-1"
-            [(ngModel)]="password" name="password" placeholder="Password"
-            required [ngClass]="{'is-invalid': passwordInvalid}" />
+            formControlName="password"
+            placeholder="Password" required
+            [ngClass]="{'is-invalid': password?.invalid && (password?.touched || password?.dirty)}" />
           <button type="button" tabindex="-1" class="btn eyeBtn" (click)="togglePassword()" aria-label="Show password">
             <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
           </button>
-          <div *ngIf="passwordInvalid" class="invalid-feedback w-100 text-start">Please enter your password.</div>
+          <div *ngIf="password?.invalid && (password?.touched || password?.dirty)" class="invalid-feedback w-100 text-start">
+            Please enter your password.
+          </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3 animate__animated animate__fadeIn animate__delay-1s">
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 animate__animated animate__fadeIn animate__delay-1s">
           <div class="remembermeToggle">
-            <input class="remembermeCheckbox" type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe" hidden>
+            <input class="remembermeCheckbox" type="checkbox" id="rememberMe"
+              formControlName="rememberMe" hidden>
             <label class="remembermeSwitch" for="rememberMe">
               <span class="slider"></span>
             </label>
@@ -45,18 +50,16 @@
               Remember Me
             </label>
           </div>
-          <a (click)="toForgotPassword()" class="forgotLink small" style="cursor:pointer">Forgot password?</a>
+          <a (click)="toForgotPassword()" class="hyperLink small" style="cursor:pointer">Forgot password?</a>
         </div>
-        <button type="submit" class="btn loginBtn w-100 mb-2">
-          LOGIN
-        </button>
+        <app-btn-submit label="LOGIN" btnClass="btn submitBtn w-100 mb-2" type="submit"
+          [loading]="loginLoading"
+          [disabled]="loginLoading"></app-btn-submit>
         <div class="text-center">
-          <a (click)="toRegister()" class="signupLink small" style="cursor:pointer">I don't have an account</a>
+          <a (click)="toRegister()" class="hyperLink small" style="cursor:pointer">I don't have an account</a>
         </div>
       </form>
     </div>
     <app-animated-circles></app-animated-circles>
   </div>
-
 </app-modern-card>
-

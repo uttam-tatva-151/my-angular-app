@@ -3,66 +3,122 @@ import { Router } from '@angular/router';
 import { ModernCardComponent } from '../../../shared/components/modern-card/modern-card.component';
 import { InfoPanelComponent } from '../info-panel/info-panel.component';
 import { AnimatedCirclesComponent } from '../../../shared/components/animated-circles/animated-circles.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/API/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { EmailManagerService } from '../../../core/services/EmailManagerService/EmailManager.service';
+import { PasswordManagerService } from '../../../core/services/PasswordManagerService/PasswordManager.service';
+import { SubmitComponent } from "../../../shared/components/Buttons/submit/submit.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModernCardComponent, InfoPanelComponent, AnimatedCirclesComponent, HttpClientModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ModernCardComponent,
+    InfoPanelComponent,
+    AnimatedCirclesComponent,
+    SubmitComponent
+  ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   showPassword = false;
-  email = '';
-  password = '';
-  userName = '';
-  termsAccepted = false;
+  registerLoading = false;
 
-  emailInvalid = false;
-  passwordInvalid = false;
-  userNameInvalid = false;
-  termsInvalid = false;
+  // Password error tracking
+  showPasswordErrorPopup = false;
+  passwordErrors: string[] = [];
+  passwordTouched = false; // To track if user has made an error at least once
 
-  constructor(private router: Router, private apiService: ApiService) {}
-  user = {
-    emailId: '',
-    userName: '',
-    password: ''
-  };
+  registerForm: FormGroup;
+
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private emailService: EmailManagerService,
+    private passwordManager: PasswordManagerService,
+    private fb: FormBuilder
+  ) {
+    this.registerForm = this.fb.group({
+      userName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+      termsAccepted: [false, Validators.requiredTrue]
+    });
+  }
 
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit() {
-    this.userNameInvalid = !this.userName || this.userName.trim().length < 3;
-    this.emailInvalid = !this.email || !/^\S+@\S+\.\S+$/.test(this.email);
-    this.passwordInvalid = !this.password || this.password.length < 8;
-    this.termsInvalid = !this.termsAccepted;
+  onPasswordInput() {
+    const password = this.registerForm.get('password')?.value || '';
+    this.passwordErrors = this.passwordManager.getPasswordErrors(password);
+    if (!this.passwordTouched && this.passwordErrors.length > 0) {
+      this.passwordTouched = true;
+      this.showPasswordErrorPopup = true;
+    }
+    if (this.passwordTouched && this.passwordErrors.length === 0) {
+      this.passwordTouched = false;
+      this.showPasswordErrorPopup = false;
+    }
+  }
 
-    if (this.userNameInvalid || this.emailInvalid || this.passwordInvalid || this.termsInvalid) {
+  showPasswordErrorsPopupBtn() {
+    const password = this.registerForm.get('password')?.value || '';
+    this.passwordErrors = this.passwordManager.getPasswordErrors(password);
+    this.showPasswordErrorPopup = true;
+  }
+
+  closePasswordErrorPopup() {
+    this.showPasswordErrorPopup = false;
+  }
+
+  onSubmit() {
+    // Manual validation for custom services
+    const email = this.registerForm.get('email')?.value;
+    const password = this.registerForm.get('password')?.value;
+    const userName = this.registerForm.get('userName')?.value;
+
+    // Set errors if services fail validation
+    if (!this.emailService.isValid(email)) {
+      this.registerForm.get('email')?.setErrors({ invalidEmail: true });
+    }
+    if (!this.passwordManager.isValid(password)) {
+      this.registerForm.get('password')?.setErrors({ invalidPassword: true });
+      if (!this.passwordTouched) {
+        this.passwordTouched = true;
+        this.passwordErrors = this.passwordManager.getPasswordErrors(password);
+        this.showPasswordErrorPopup = true;
+      }
+    }
+
+    if (this.registerForm.invalid) {
+      // Mark all controls as touched to show errors
+      this.registerForm.markAllAsTouched();
       return;
     }
-    this.user.emailId = this.email;
-    this.user.userName = this.userName;
-    this.user.password = this.password;
 
-    this.apiService.registerUser(this.user).subscribe({
+    const user = {
+      emailId: email,
+      userName: userName,
+      password: password,
+    };
+
+    this.registerLoading = true;
+    this.apiService.registerUser(user).subscribe({
       next: (res) => {
-        // handle success
+        this.registerLoading = false;
         alert('Registration successful!' + res);
       },
       error: (err) => {
-        // handle error
+        this.registerLoading = false;
         alert('Registration failed!');
-      }
+      },
     });
-
-    // Place your registration logic here
   }
 
   toLogin() {

@@ -59,12 +59,7 @@ h1 {
     "Segoe UI Symbol";
 }
 /* #endregion */
-.btnPrimary { /* ...styles... */ }
-.btnOutlinePrimary { /* ...styles... */ }
-.btnPrimary::after { /* ... */ }
-.btnPrimary:hover, .btnPrimary:focus { /* ... */ }
-.btnOutlinePrimary::before { /* ... */ }
-.btnOutlinePrimary:hover, .btnOutlinePrimary:focus { /* ... */ }
+
 .fancyTextAnimation {
   opacity: 0;
   transform: translateY(30px);
@@ -102,7 +97,6 @@ h2.brandGradientText:hover::after, .fancyTextAnimation:hover::after,
 h2.brandGradientText:focus::after, .fancyTextAnimation:focus::after {
   width: 70%;
 }
-
 @media screen and (max-width: 650px) {
 
 }

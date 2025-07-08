@@ -13,6 +13,6 @@ export class PrimaryButtonComponent{
   @Input() iconClass?:string;
   @Input() link?: string;
   @Input() label?: string;
-  @Input() extraClasses?: string;
+  @Input() extraClasses?: string | string [];
 
 }

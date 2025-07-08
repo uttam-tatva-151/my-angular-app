@@ -1,0 +1,39 @@
+.custom-toast {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 16px #0001;
+  margin-bottom: 8px;
+  min-width: 300px;
+  padding: 16px;
+  position: relative;
+  font-family: inherit;
+  transition: box-shadow 0.2s;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+.close {
+  margin-left: auto;
+  cursor: pointer;
+}
+.success { border-left: 5px solid #28a745; }
+.error { border-left: 5px solid #dc3545; }
+.info { border-left: 5px solid #17a2b8; }
+.warning { border-left: 5px solid #ffc107; }
+.details-toggle { color: #007bff; cursor: pointer; margin-top: 8px; }
+.error-list { color: #dc3545; margin-top: 8px; }
+.progress-bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #007bff 60%, #e9ecef 100%);
+  margin-top: 10px;
+  border-radius: 2px;
+  animation: progress 7s linear forwards;
+}
+@keyframes progress {
+  0% { width: 100%; }
+  100% { width: 0; }
+}

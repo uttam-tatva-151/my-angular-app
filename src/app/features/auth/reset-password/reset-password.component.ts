@@ -3,45 +3,126 @@ import { Router } from '@angular/router';
 import { ModernCardComponent } from '../../../shared/components/modern-card/modern-card.component';
 import { InfoPanelComponent } from '../info-panel/info-panel.component';
 import { AnimatedCirclesComponent } from '../../../shared/components/animated-circles/animated-circles.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SubmitComponent } from "../../../shared/components/Buttons/submit/submit.component";
+import { PasswordManagerService } from '../../../core/services/PasswordManagerService/PasswordManager.service';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModernCardComponent, InfoPanelComponent, AnimatedCirclesComponent],
+  imports: [CommonModule, ReactiveFormsModule, ModernCardComponent, InfoPanelComponent, AnimatedCirclesComponent, SubmitComponent],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent {
   showPassword = false;
   showConfirmPassword = false;
-  password = '';
-  confirmPassword = '';
-  passwordInvalid = false;
-  confirmPasswordInvalid = false;
   submitted = false;
+  resetPwdLoading = false;
+  resetForm: FormGroup;
+  passwordErrors: string[] = [];
+  passwordTouched = false;
+  showPasswordErrorPopup = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private passwordService: PasswordManagerService
+  ) {
+    this.resetForm = this.fb.group({
+      password: ['', [Validators.required, this.passwordStrengthValidator.bind(this)]],
+      confirmPassword: ['', [Validators.required]]
+    }, {
+      validators: [this.passwordsMatchValidator]
+    });
+  }
+
+  get password() {
+    return this.resetForm.get('password');
+  }
+  get confirmPassword() {
+    return this.resetForm.get('confirmPassword');
+  }
 
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
-
   toggleConfirmPassword() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onSubmit() {
-    this.passwordInvalid = !this.password || this.password.length < 6;
-    this.confirmPasswordInvalid = this.password !== this.confirmPassword;
-    if (!this.passwordInvalid && !this.confirmPasswordInvalid) {
-      this.submitted = true;
-      setTimeout(() => {
-        alert('Your password has been reset! (Demo)');
-        this.router.navigate(['/auth/login']);
-      }, 600);
+  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.value || '';
+    const errors = this.passwordService.getPasswordErrors(password);
+    if (errors.length > 0) {
+      // Store errors for displaying in popup
+      this.passwordErrors = errors;
+      return { passwordInvalid: true };
     }
+    this.passwordErrors = [];
+    return null;
+  }
+
+  showPasswordErrorsPopupBtn() {
+    const password = this.password?.value || '';
+    this.passwordErrors = this.passwordService.getPasswordErrors(password);
+    this.showPasswordErrorPopup = true;
+  }
+
+  closePasswordErrorPopup() {
+    this.showPasswordErrorPopup = false;
+  }
+
+  onPasswordInput() {
+    const password = this.password?.value || '';
+    this.passwordErrors = this.passwordService.getPasswordErrors(password);
+    if (!this.passwordTouched && this.passwordErrors.length > 0) {
+      this.passwordTouched = true;
+      this.showPasswordErrorPopup = true;
+    }
+    if (this.passwordTouched && this.passwordErrors.length === 0) {
+      this.passwordTouched = false;
+      this.showPasswordErrorPopup = false;
+    }
+  }
+
+  passwordsMatchValidator(form: AbstractControl): ValidationErrors | null {
+    const pwd = form.get('password')?.value;
+    const confirmPwd = form.get('confirmPassword')?.value;
+    if (pwd !== confirmPwd) {
+      form.get('confirmPassword')?.setErrors({ notMatch: true });
+      return { notMatch: true };
+    } else {
+      if (form.get('confirmPassword')?.hasError('notMatch')) {
+        form.get('confirmPassword')?.setErrors(null);
+      }
+    }
+    return null;
+  }
+
+  onSubmit() {
+    // Mark all controls as touched to show errors
+    this.resetForm.markAllAsTouched();
+
+    // Re-validate password using service
+    if (this.password?.invalid) {
+      this.passwordErrors = this.passwordService.getPasswordErrors(this.password.value);
+      if (!this.passwordTouched && this.passwordErrors.length > 0) {
+        this.passwordTouched = true;
+        this.showPasswordErrorPopup = true;
+      }
+    }
+
+    if (this.resetForm.invalid) {
+      return;
+    }
+
+    this.submitted = true;
+    setTimeout(() => {
+      alert('Your password has been reset! (Demo)');
+      this.router.navigate(['/auth/login']);
+    }, 600);
   }
 
   toLogin() {
