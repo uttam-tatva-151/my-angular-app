@@ -1,0 +1,47 @@
+.behavior-vs-replay-demo {
+  margin-bottom: 2rem;
+}
+
+.message-controls {
+  margin-bottom: 1rem;
+}
+
+.sent-messages {
+  margin-bottom: 1rem;
+}
+
+.columns {
+  display: flex;
+  gap: 2rem;
+}
+
+.columns>div {
+  flex: 1;
+  background: #f8faff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #e0e8f8;
+}
+
+.subscribers {
+  display: flex;
+  gap: 1rem;
+}
+
+.subscribers>div {
+  flex: 1;
+}
+
+ul {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+small {
+  color: #666;
+}

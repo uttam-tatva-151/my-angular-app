@@ -1,0 +1,66 @@
+<div class="behavior-vs-replay-demo">
+  <h3>BehaviorSubject vs ReplaySubject Demo</h3>
+
+  <div class="message-controls">
+    <input #msg type="text" placeholder="Send message" />
+    <button (click)="sendTestMessage(msg.value); msg.value=''">Send</button>
+    <small>Type a message and send it before or after subscribing to see different behaviors.</small>
+  </div>
+  <div class="sent-messages">
+    <b>All Sent Messages (in order):</b>
+    <ol>
+      <li *ngFor="let m of sentMessages">
+        <b>{{m.user}}</b>: {{m.content}}
+      </li>
+    </ol>
+  </div>
+
+  <div class="columns">
+    <!-- BehaviorSubject Subscribers -->
+    <div>
+      <h4>BehaviorSubject</h4>
+      <button (click)="subscribeBehaviorA()" [disabled]="isBehaviorASubscribed">Subscribe A</button>
+      <button (click)="subscribeBehaviorB()" [disabled]="isBehaviorBSubscribed">Subscribe B</button>
+      <div class="subscribers">
+        <div>
+          <b>Subscriber A:</b>
+          <ul>
+            <li *ngFor="let m of behaviorMsgsA">{{m.content}}</li>
+          </ul>
+        </div>
+        <div>
+          <b>Subscriber B:</b>
+          <ul>
+            <li *ngFor="let m of behaviorMsgsB">{{m.content}}</li>
+          </ul>
+        </div>
+      </div>
+      <small>
+        <i>BehaviorSubject: Each new subscriber immediately receives the <b>latest</b> message (if any), then all subsequent ones.</i>
+      </small>
+    </div>
+    <!-- ReplaySubject Subscribers -->
+    <div>
+      <h4>ReplaySubject (last 3)</h4>
+      <button (click)="subscribeReplayA()" [disabled]="isReplayASubscribed">Subscribe A</button>
+      <button (click)="subscribeReplayB()" [disabled]="isReplayBSubscribed">Subscribe B</button>
+      <div class="subscribers">
+        <div>
+          <b>Subscriber A:</b>
+          <ul>
+            <li *ngFor="let m of replayMsgsA">{{m.content}}</li>
+          </ul>
+        </div>
+        <div>
+          <b>Subscriber B:</b>
+          <ul>
+            <li *ngFor="let m of replayMsgsB">{{m.content}}</li>
+          </ul>
+        </div>
+      </div>
+      <small>
+        <i>ReplaySubject: Each new subscriber immediately receives the <b>last 3</b> messages, then all subsequent ones.</i>
+      </small>
+    </div>
+  </div>
+</div>

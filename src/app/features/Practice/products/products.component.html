@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="products-column">
+    <h2>Product List</h2>
+    <input
+      type="text"
+      [value]="store.filter()"
+      placeholder="Search products"
+      (input)="onFilterInput($event)"
+      class="search"
+    />
+    <ul>
+      <li *ngFor="let p of store.filteredProducts()">
+        <span>{{p.name}} - ${{p.price}}</span>
+        <button (click)="addToCart(p)">Add to Cart</button>
+      </li>
+    </ul>
+  </div>
+  <div class="cart-column">
+    <h2>Your Cart</h2>
+    <ul>
+      <li *ngFor="let item of store.cart()">
+        <b>{{item.product.name}}</b> -
+        ${{item.product.price}} x {{item.quantity}}
+        <button (click)="changeQuantity(item.product, 1)">+</button>
+        <button (click)="changeQuantity(item.product, -1)">-</button>
+        <button (click)="removeFromCart(item.product)">Remove</button>
+      </li>
+    </ul>
+    <p *ngIf="store.cart().length">
+      <b>Total Items:</b> {{store.totalItems()}}<br>
+      <b>Total Price:</b> ${{store.totalPrice()}}
+    </p>
+    <button *ngIf="store.cart().length" (click)="clearCart()">Clear Cart</button>
+  </div>
+</div>

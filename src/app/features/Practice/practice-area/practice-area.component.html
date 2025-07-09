@@ -1,0 +1,13 @@
+<div class="mainBg">
+  <nav class="navbar row flex-nowrap d-flex p-5 justify-content-center gap-2">
+    <app-btn-submit (click)="toPracticeArea()" label="Back" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+    <app-btn-submit (click)="toRxJSDemo()" label="RxJS Demo" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+    <app-btn-submit (click)="toSignals()" label="Signals" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+    <app-btn-submit (click)="toSignalStore()" label="Signal store" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+  </nav>
+  <div class="flipContainer w-100" id="flipContainer">
+    <div class="flipper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

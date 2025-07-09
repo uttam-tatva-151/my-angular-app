@@ -11,7 +11,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // reset password
+  // update password
+  updatePassword(request: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/Authentication/update-password`, request, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  // reset password link
   resetPassword(request: string): Observable<any>{
     return this.http.post(`${this.baseUrl}/Authentication/reset-password-link`, request, {
       headers: { 'Content-Type': 'application/json' }

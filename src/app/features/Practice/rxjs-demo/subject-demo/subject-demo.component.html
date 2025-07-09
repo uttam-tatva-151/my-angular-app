@@ -1,0 +1,11 @@
+<div class="subject-demo">
+  <h3>Subject Demo</h3>
+  <input #user type="text" placeholder="User" />
+  <input #msg type="text" placeholder="Message" />
+  <button (click)="send(user.value, msg.value)">Send</button>
+  <ul>
+    <li *ngFor="let m of messages">
+      <b>{{m.user}}</b>: {{m.content}} <small>({{m.timestamp | date:'shortTime'}})</small>
+    </li>
+  </ul>
+</div>

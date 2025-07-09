@@ -1,0 +1,47 @@
+<div class="container">
+  <!-- Without Signals -->
+  <div class="column">
+    <h2>Without Signals (Classic State)</h2>
+    <ul>
+      <li *ngFor="let p of products">
+        {{p.name}} - ${{p.price}}
+        <button (click)="addToCartClassic(p)">Add to Cart</button>
+      </li>
+    </ul>
+    <h3>Cart:</h3>
+    <ul>
+      <li *ngFor="let item of classicCart">
+        {{item.product.name}} x {{item.quantity}}
+        <button (click)="removeFromCartClassic(item.product)">Remove</button>
+      </li>
+    </ul>
+    <p *ngIf="classicCart.length">Total: ${{classicTotal}}</p>
+  </div>
+
+  <!-- With Signals -->
+  <div class="column">
+    <h2>With Signals</h2>
+    <ul>
+      <li *ngFor="let p of products">
+        {{p.name}} - ${{p.price}}
+        <button (click)="addToCartSignal(p)">Add to Cart</button>
+      </li>
+    </ul>
+    <h3>Cart:</h3>
+    <ul>
+      <li *ngFor="let item of cart()">
+        {{item.product.name}} x {{item.quantity}}
+        <button (click)="removeFromCartSignal(item.product)">Remove</button>
+      </li>
+    </ul>
+    <p *ngIf="cart().length">Total: ${{totalPrice()}}</p>
+  </div>
+</div>
+<hr>
+<div class="m-4">
+<h3>What Happens When You Interact?</h3>
+<ul>
+  <li><b>Without Signals:</b> You must manually calculate totals and sometimes force UI updates using <code>ChangeDetectorRef</code>.</li>
+  <li><b>With Signals:</b> Totals and cart display update instantly and automatically, without manual recalculation or change detection.</li>
+  <li><b>Signals:</b> Make state and UI synchronization easier, more performant, and less error-prone.</li>
+</ul></div>

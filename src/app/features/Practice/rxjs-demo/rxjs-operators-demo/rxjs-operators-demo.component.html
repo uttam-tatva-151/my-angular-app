@@ -1,0 +1,17 @@
+<div class="rxjs-operators-demo">
+  <h3>RxJS Operators Demo</h3>
+  <input
+    type="text"
+    placeholder="Search by user"
+    #searchInput
+    (input)="onSearchInput(searchInput.value)"
+  />
+  <ul>
+    <li *ngFor="let m of (searchResults$ | async)">
+      <b>{{m.user}}</b>: {{m.content}} <small>({{m.timestamp | date:'shortTime'}})</small>
+    </li>
+  </ul>
+  <p *ngIf="lastSearchTerm && !(searchResults$ | async)?.length">
+    No messages for user "{{lastSearchTerm}}"
+  </p>
+</div>
