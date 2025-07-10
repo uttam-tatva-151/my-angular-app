@@ -1,0 +1,26 @@
+<div class="contact-list" [ngClass]="cdStrategy.toLowerCase()">
+  <h3>
+    <span class="cd-label">{{ cdStrategy }}</span>
+    Change Detection
+  </h3>
+  <ul>
+    <li *ngFor="let contact of contacts; let i = index">
+      <span class="contact-name">{{contact.name}}</span>
+      <span class="contact-status" [class.online]="statuses[contact.id]">
+        {{ statuses[contact.id] ? 'Online' : 'Offline' }}
+      </span>
+      <span class="contact-msg">| Last: {{contact.lastMessage}}</span>
+      <span *ngIf="i === 0" class="hint">(Try mutate/replace below!)</span>
+    </li>
+  </ul>
+  <div class="actions">
+    <button (click)="mutateContactName()">Mutate 1st Contact Name<br><span class="hint">[in-place (won't trigger OnPush)]</span></button>
+    <button (click)="replaceContact()">Replace 1st Contact<br><span class="hint">[new object (triggers OnPush)]</span></button>
+    <button (click)="manualDetectChanges()">Manual detectChanges()<br><span class="hint">[forces update]</span></button>
+  </div>
+  <div class="info">
+    <b>Tip:</b> With <span *ngIf="cdStrategy==='OnPush'">OnPush</span><span *ngIf="cdStrategy==='Default'">Default</span> detection,
+    <span *ngIf="cdStrategy==='OnPush'">the UI only updates for <b>new object references</b> or manual triggers.</span>
+    <span *ngIf="cdStrategy==='Default'">the UI updates for <b>any change</b>, even in-place mutations.</span>
+  </div>
+</div>

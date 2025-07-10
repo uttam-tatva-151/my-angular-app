@@ -1,0 +1,13 @@
+.parent-actions {
+  margin-bottom: 14px;
+}
+.parent-actions button {
+  margin-right: 8px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.hint {
+  font-size: 0.87em;
+  color: #607d8b;
+  display: block;
+}

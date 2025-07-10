@@ -1,0 +1,42 @@
+.contact-list {
+  border: 2px solid #bdbdbd;
+  border-radius: 8px;
+  padding: 1em;
+  margin: 0.5em 0;
+  min-width: 320px;
+  background: #f7f7f7;
+}
+.contact-list.default { border-color: #1976d2; }
+.contact-list.onpush { border-color: #43a047; background: #f4fff4; }
+.cd-label {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1em;
+  color: #fff;
+  background: #1976d2;
+}
+.contact-list.onpush .cd-label { background: #43a047; }
+.contact-name { font-weight: 600; }
+.contact-status { margin-left: 10px; }
+.contact-status.online { color: #43a047; }
+.contact-msg { color: #616161; font-size: 0.95em; margin-left: 8px; }
+.hint {
+  font-size: 0.87em;
+  color: #607d8b;
+  display: block;
+}
+.actions button {
+  margin-right: 6px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.info {
+  margin-top: 10px;
+  font-size: 0.97em;
+  color: #444;
+  background: #fffde7;
+  border: 1px solid #ffe082;
+  padding: 7px 10px;
+  border-radius: 6px;
+}

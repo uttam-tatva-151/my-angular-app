@@ -11,6 +11,12 @@
   <button type="submit">Add Task</button>
 </form>
 
+<!-- Counter visualization -->
+<button (click)="resetCounter()" style="margin-bottom:1rem;">Reset Render Counters</button>
+<div *ngFor="let status of statuses">
+  <b>Rendered items in {{status}}: {{renderCounter[status]}}</b>
+</div>
+
 <div class="board">
   <div class="column" *ngFor="let status of statuses">
     <h2>
@@ -18,7 +24,9 @@
     </h2>
     <ul>
       <!-- Use trackBy for performance -->
-      <li *ngFor="let task of getTasksByStatus(status); trackBy: trackByTaskId">
+      <li *ngFor="let task of getTasksByStatus(status); let i = index; trackBy: trackByTaskId">
+        <!-- Visualization: call countRender for each render -->
+        {{ countRender(status, task, i) }}
         <div *ngIf="!task.editing">
           <b>{{ task.title }}</b>
           <p>{{ task.description }}</p>

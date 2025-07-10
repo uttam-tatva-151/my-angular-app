@@ -19,12 +19,27 @@ export class TaskBoardComponent  {
     { id: 3, title: 'Testing', description: 'Write unit tests', status: 'done' }
   ];
 
-  // Typed status array ensures 'status' is always the right union type in template
   readonly statuses: Array<'todo' | 'inprogress' | 'done'> = ['todo', 'inprogress', 'done'];
 
   newTaskTitle = '';
   newTaskDesc = '';
   newTaskStatus: 'todo' | 'inprogress' | 'done' = 'todo';
+
+  // --- Visualization counters ---
+  renderCounter: { [status: string]: number } = { todo: 0, inprogress: 0, done: 0 };
+
+  // Reset counters before each change detection cycle
+  resetCounter() {
+    this.renderCounter = { todo: 0, inprogress: 0, done: 0 };
+  }
+
+  // Called from template to increment and log render
+  countRender(status: string, task: Task, index: number) {
+    this.renderCounter[status]++;
+    // For console log
+    console.log(`Render: status=${status}, taskId=${task.id}, index=${index}`);
+    return '';
+  }
 
   addTask() {
     if (this.newTaskTitle.trim()) {

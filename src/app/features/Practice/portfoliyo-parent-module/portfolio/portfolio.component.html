@@ -1,0 +1,33 @@
+<div class="portfolio" [ngClass]="cdStrategy.toLowerCase()">
+  <h3>
+    <span class="cd-label">{{ cdStrategy }}</span>
+    Change Detection
+  </h3>
+  <div class="section">
+    <b>Owner:</b> {{ portfolio.owner }}
+  </div>
+  <div class="section">
+    <b>Stocks:</b>
+    <ul>
+      <li *ngFor="let stock of portfolio.stocks; let i = index">
+        <span class="stock-symbol">{{stock.symbol}}</span>
+        - Price: <span class="stock-price">{{stock.price}}</span>
+        <span *ngIf="prices[stock.symbol]" class="stock-live">
+          (Live: {{prices[stock.symbol]}})
+        </span>
+        <span class="stock-sector">| Sector: {{stock.details.sector}}</span>
+        <span *ngIf="i === 0" class="hint">(Try mutate/replace below!)</span>
+      </li>
+    </ul>
+  </div>
+  <div class="actions">
+    <button (click)="mutateStockPrice()">Mutate 1st Stock Price<br><span class="hint">[in-place (won't trigger OnPush)]</span></button>
+    <button (click)="replaceStock()">Replace 1st Stock<br><span class="hint">[new object (triggers OnPush)]</span></button>
+    <button (click)="manualDetectChanges()">Manual detectChanges()<br><span class="hint">[forces update]</span></button>
+  </div>
+  <div class="info">
+    <b>Tip:</b> With <span *ngIf="cdStrategy==='OnPush'">OnPush</span><span *ngIf="cdStrategy==='Default'">Default</span> detection,
+    <span *ngIf="cdStrategy==='OnPush'">the UI only updates for <b>new object references</b> or manual triggers.</span>
+    <span *ngIf="cdStrategy==='Default'">the UI updates for <b>any change</b>, even in-place mutations.</span>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<h2>Contacts List Change Detection Demo</h2>
+<div class="parent-actions">
+  <button (click)="simulateStatusChange()">Simulate Status Change<br>
+    <span class="hint">[Observable emits new status]</span>
+  </button>
+  <button (click)="replaceAllContacts()">Replace All Contacts<br>
+    <span class="hint">[new objects (triggers OnPush)]</span>
+  </button>
+  <button (click)="mutateAllContacts()">Mutate All Contacts<br>
+    <span class="hint">[in-place (won't trigger OnPush)]</span>
+  </button>
+</div>
+<div style="display: flex; gap: 28px; margin-top: 18px;">
+  <app-contact-list
+    [contacts]="contacts"
+    [status$]="status$"
+    [cdStrategy]="'Default'"
+    (action)="onAction('Default', $event)"
+  ></app-contact-list>
+  <app-contact-list
+    [contacts]="contacts"
+    [status$]="status$"
+    [cdStrategy]="'OnPush'"
+    (action)="onAction('OnPush', $event)"
+  ></app-contact-list>
+</div>s

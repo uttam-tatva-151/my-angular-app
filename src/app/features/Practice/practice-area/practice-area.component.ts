@@ -28,5 +28,8 @@ export class PracticeAreaComponent {
   toTrackBy(){
     this.router.navigate(['/practice-area/track-by']);
   }
+  toChangeDetection(){
+    this.router.navigate(['/practice-area/change-detection-with-to-do']);
+  }
 
 }

@@ -1,0 +1,26 @@
+<h2>Stock Portfolio Change Detection Demo</h2>
+<div class="parent-actions">
+  <button (click)="simulateLivePrices()">Simulate Live Prices<br>
+    <span class="hint">[Emits new prices via Observable]</span>
+  </button>
+  <button (click)="replacePortfolioAll()">Replace All Stocks<br>
+    <span class="hint">[new objects (triggers OnPush)]</span>
+  </button>
+  <button (click)="mutatePortfolioAll()">Mutate All Stocks<br>
+    <span class="hint">[in-place (won't trigger OnPush)]</span>
+  </button>
+</div>
+<div style="display: flex; gap: 28px; margin-top: 18px;">
+  <app-portfolio
+    [portfolio]="portfolio"
+    [livePrices$]="livePrices$"
+    [cdStrategy]="'Default'"
+    (action)="onAction('Default', $event)"
+  ></app-portfolio>
+  <app-portfolio
+    [portfolio]="portfolio"
+    [livePrices$]="livePrices$"
+    [cdStrategy]="'OnPush'"
+    (action)="onAction('OnPush', $event)"
+  ></app-portfolio>
+</div>
