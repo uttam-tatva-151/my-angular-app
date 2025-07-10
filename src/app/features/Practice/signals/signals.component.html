@@ -1,47 +1,81 @@
-<div class="container">
-  <!-- Without Signals -->
-  <div class="column">
-    <h2>Without Signals (Classic State)</h2>
-    <ul>
-      <li *ngFor="let p of products">
-        {{p.name}} - ${{p.price}}
-        <button (click)="addToCartClassic(p)">Add to Cart</button>
-      </li>
-    </ul>
-    <h3>Cart:</h3>
-    <ul>
-      <li *ngFor="let item of classicCart">
-        {{item.product.name}} x {{item.quantity}}
-        <button (click)="removeFromCartClassic(item.product)">Remove</button>
-      </li>
-    </ul>
-    <p *ngIf="classicCart.length">Total: ${{classicTotal}}</p>
-  </div>
+<div class="container my-5">
+  <div class="row g-4 d-flex justify-content-center w-100">
+    <!-- Without Signals -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="card-title fs-4 mb-4 text-primary">Without Signals <span class="fs-6 text-muted">(Classic State)</span></h2>
+          <ul class="list-group mb-4">
+            <li *ngFor="let p of products" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <b>{{p.name}}</b> <span class="text-muted">- ${{p.price}}</span>
+              </span>
+              <button (click)="addToCartClassic(p)" class="btn btn-outline-success btn-sm">Add to Cart</button>
+            </li>
+          </ul>
+          <h3 class="fs-6 text-secondary">Cart:</h3>
+          <ul class="list-group mb-2">
+            <li *ngFor="let item of classicCart" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                {{item.product.name}} <span class="badge bg-secondary">{{item.quantity}}</span>
+              </span>
+              <button (click)="removeFromCartClassic(item.product)" class="btn btn-outline-danger btn-sm">Remove</button>
+            </li>
+            <li *ngIf="!classicCart.length" class="list-group-item text-muted text-center">Cart is empty</li>
+          </ul>
+          <p *ngIf="classicCart.length" class="fw-semibold text-end mt-2">Total: <span class="text-success">${{classicTotal}}</span></p>
+        </div>
+      </div>
+    </div>
 
-  <!-- With Signals -->
-  <div class="column">
-    <h2>With Signals</h2>
-    <ul>
-      <li *ngFor="let p of products">
-        {{p.name}} - ${{p.price}}
-        <button (click)="addToCartSignal(p)">Add to Cart</button>
-      </li>
-    </ul>
-    <h3>Cart:</h3>
-    <ul>
-      <li *ngFor="let item of cart()">
-        {{item.product.name}} x {{item.quantity}}
-        <button (click)="removeFromCartSignal(item.product)">Remove</button>
-      </li>
-    </ul>
-    <p *ngIf="cart().length">Total: ${{totalPrice()}}</p>
+    <!-- With Signals -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="card-title fs-4 mb-4 text-primary">With Signals</h2>
+          <ul class="list-group mb-4">
+            <li *ngFor="let p of products" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <b>{{p.name}}</b> <span class="text-muted">- ${{p.price}}</span>
+              </span>
+              <button (click)="addToCartSignal(p)" class="btn btn-outline-success btn-sm">Add to Cart</button>
+            </li>
+          </ul>
+          <h3 class="fs-6 text-secondary">Cart:</h3>
+          <ul class="list-group mb-2">
+            <li *ngFor="let item of cart()" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                {{item.product.name}} <span class="badge bg-primary">{{item.quantity}}</span>
+              </span>
+              <button (click)="removeFromCartSignal(item.product)" class="btn btn-outline-danger btn-sm">Remove</button>
+            </li>
+            <li *ngIf="!cart().length" class="list-group-item text-muted text-center">Cart is empty</li>
+          </ul>
+          <p *ngIf="cart().length" class="fw-semibold text-end mt-2">Total: <span class="text-success">${{totalPrice()}}</span></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <hr>
-<div class="m-4">
-<h3>What Happens When You Interact?</h3>
-<ul>
-  <li><b>Without Signals:</b> You must manually calculate totals and sometimes force UI updates using <code>ChangeDetectorRef</code>.</li>
-  <li><b>With Signals:</b> Totals and cart display update instantly and automatically, without manual recalculation or change detection.</li>
-  <li><b>Signals:</b> Make state and UI synchronization easier, more performant, and less error-prone.</li>
-</ul></div>
+<div class="container my-4">
+  <div class="card bg-light border-0 shadow-sm">
+    <div class="card-body">
+      <h3 class="fs-5 mb-3 text-dark">What Happens When You Interact?</h3>
+      <ul class="list-unstyled">
+        <li class="mb-2">
+          <span class="fw-bold text-primary">Without Signals:</span>
+          <span class="text-muted">You must manually calculate totals and sometimes force UI updates using <code>ChangeDetectorRef</code>.</span>
+        </li>
+        <li class="mb-2">
+          <span class="fw-bold text-primary">With Signals:</span>
+          <span class="text-muted">Totals and cart display update instantly and automatically, without manual recalculation or change detection.</span>
+        </li>
+        <li>
+          <span class="fw-bold text-primary">Signals:</span>
+          <span class="text-muted">Make state and UI synchronization easier, more performant, and less error-prone.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

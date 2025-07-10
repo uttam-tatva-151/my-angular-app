@@ -25,5 +25,8 @@ export class PracticeAreaComponent {
   toSignalStore(){
     this.router.navigate(['/practice-area/signal-store']);
   }
+  toTrackBy(){
+    this.router.navigate(['/practice-area/track-by']);
+  }
 
 }

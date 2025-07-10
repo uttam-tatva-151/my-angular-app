@@ -1,47 +1,86 @@
 .behavior-vs-replay-demo {
-  margin-bottom: 2rem;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.5rem 0;
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid #e8eaf1;
+  background: #fff;
+}
+
+.card-title {
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.input-group .form-control {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.input-group .btn {
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .message-controls {
-  margin-bottom: 1rem;
+  background: #f6f9fb;
+  border: 1px solid #e7eaf3;
+  border-radius: 1rem;
 }
 
 .sent-messages {
-  margin-bottom: 1rem;
+  background: #f9fafc;
 }
 
-.columns {
-  display: flex;
-  gap: 2rem;
+ol {
+  margin-bottom: 0;
+  padding-left: 1.1em;
 }
 
-.columns>div {
-  flex: 1;
-  background: #f8faff;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #e0e8f8;
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #f2f2f2;
+  background: transparent;
+  font-size: 0.98em;
+}
+.list-group-item:last-child {
+  border-bottom: none;
 }
 
 .subscribers {
-  display: flex;
-  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.subscribers>div {
-  flex: 1;
+.btn-outline-primary,
+.btn-outline-success {
+  min-width: 110px;
+  margin-bottom: 0.2rem;
 }
 
-ul {
-  margin: 0.5rem 0;
-  padding-left: 1rem;
+.text-info {
+  color: #2563eb !important;
 }
 
-button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
+.text-primary {
+  color: #2563eb !important;
 }
 
-small {
-  color: #666;
+.text-success {
+  color: #26890d !important;
+}
+
+.text-muted {
+  color: #94a3b8 !important;
+}
+
+@media (max-width: 767.98px) {
+  .row.columns > [class^="col-"] {
+    margin-bottom: 1.5rem;
+  }
+  .subscribers .col-6 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }

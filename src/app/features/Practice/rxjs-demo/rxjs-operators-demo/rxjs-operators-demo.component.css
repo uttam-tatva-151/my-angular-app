@@ -1,3 +1,41 @@
-.rxjs-operators-demo { margin-bottom: 1rem; }
-input { margin-bottom: 0.5rem; }
-ul { margin-top: 0.5rem; }
+.rxjs-operators-demo {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.5rem 0;
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid #e8eaf1;
+  background: #fff;
+}
+
+.text-primary {
+  color: #2563eb !important;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e3e6ed;
+  background: #f9fafc;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #f2f2f2;
+  background: transparent;
+  font-size: 0.98em;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 767.98px) {
+  .rxjs-operators-demo .card {
+    padding: 1rem;
+  }
+}

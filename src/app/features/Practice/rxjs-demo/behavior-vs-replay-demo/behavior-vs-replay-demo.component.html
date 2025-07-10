@@ -1,66 +1,90 @@
-<div class="behavior-vs-replay-demo">
-  <h3>BehaviorSubject vs ReplaySubject Demo</h3>
-
-  <div class="message-controls">
-    <input #msg type="text" placeholder="Send message" />
-    <button (click)="sendTestMessage(msg.value); msg.value=''">Send</button>
-    <small>Type a message and send it before or after subscribing to see different behaviors.</small>
+<div class="behavior-vs-replay-demo container my-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h3 class="text-primary">BehaviorSubject vs ReplaySubject Demo</h3>
+    </div>
   </div>
-  <div class="sent-messages">
+
+  <div class="message-controls card mb-4 shadow-sm p-3">
+    <div class="input-group mb-2">
+      <input #msg type="text" class="form-control" placeholder="Send message" />
+      <button (click)="sendTestMessage(msg.value); msg.value=''" class="btn btn-success">Send</button>
+    </div>
+    <small class="text-muted">Type a message and send it before or after subscribing to see different behaviors.</small>
+  </div>
+
+  <div class="sent-messages card mb-4 shadow-sm p-3">
     <b>All Sent Messages (in order):</b>
-    <ol>
+    <ol class="mb-0">
       <li *ngFor="let m of sentMessages">
         <b>{{m.user}}</b>: {{m.content}}
       </li>
+      <li *ngIf="!sentMessages.length" class="text-muted">No messages sent yet.</li>
     </ol>
   </div>
 
-  <div class="columns">
+  <div class="row columns g-4">
     <!-- BehaviorSubject Subscribers -->
-    <div>
-      <h4>BehaviorSubject</h4>
-      <button (click)="subscribeBehaviorA()" [disabled]="isBehaviorASubscribed">Subscribe A</button>
-      <button (click)="subscribeBehaviorB()" [disabled]="isBehaviorBSubscribed">Subscribe B</button>
-      <div class="subscribers">
-        <div>
-          <b>Subscriber A:</b>
-          <ul>
-            <li *ngFor="let m of behaviorMsgsA">{{m.content}}</li>
-          </ul>
-        </div>
-        <div>
-          <b>Subscriber B:</b>
-          <ul>
-            <li *ngFor="let m of behaviorMsgsB">{{m.content}}</li>
-          </ul>
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title text-info">BehaviorSubject</h4>
+          <div class="mb-2">
+            <button (click)="subscribeBehaviorA()" [disabled]="isBehaviorASubscribed" class="btn btn-outline-primary btn-sm me-2">Subscribe A</button>
+            <button (click)="subscribeBehaviorB()" [disabled]="isBehaviorBSubscribed" class="btn btn-outline-primary btn-sm">Subscribe B</button>
+          </div>
+          <div class="subscribers row">
+            <div class="col-6">
+              <b>Subscriber A:</b>
+              <ul class="list-group list-group-flush mb-2">
+                <li *ngFor="let m of behaviorMsgsA" class="list-group-item">{{m.content}}</li>
+                <li *ngIf="!behaviorMsgsA.length" class="list-group-item text-muted">No messages</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <b>Subscriber B:</b>
+              <ul class="list-group list-group-flush mb-2">
+                <li *ngFor="let m of behaviorMsgsB" class="list-group-item">{{m.content}}</li>
+                <li *ngIf="!behaviorMsgsB.length" class="list-group-item text-muted">No messages</li>
+              </ul>
+            </div>
+          </div>
+          <small class="text-muted d-block mt-2">
+            <i>BehaviorSubject: Each new subscriber immediately receives the <b>latest</b> message (if any), then all subsequent ones.</i>
+          </small>
         </div>
       </div>
-      <small>
-        <i>BehaviorSubject: Each new subscriber immediately receives the <b>latest</b> message (if any), then all subsequent ones.</i>
-      </small>
     </div>
     <!-- ReplaySubject Subscribers -->
-    <div>
-      <h4>ReplaySubject (last 3)</h4>
-      <button (click)="subscribeReplayA()" [disabled]="isReplayASubscribed">Subscribe A</button>
-      <button (click)="subscribeReplayB()" [disabled]="isReplayBSubscribed">Subscribe B</button>
-      <div class="subscribers">
-        <div>
-          <b>Subscriber A:</b>
-          <ul>
-            <li *ngFor="let m of replayMsgsA">{{m.content}}</li>
-          </ul>
-        </div>
-        <div>
-          <b>Subscriber B:</b>
-          <ul>
-            <li *ngFor="let m of replayMsgsB">{{m.content}}</li>
-          </ul>
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title text-info">ReplaySubject <span class="fs-6 text-muted">(last 3)</span></h4>
+          <div class="mb-2">
+            <button (click)="subscribeReplayA()" [disabled]="isReplayASubscribed" class="btn btn-outline-success btn-sm me-2">Subscribe A</button>
+            <button (click)="subscribeReplayB()" [disabled]="isReplayBSubscribed" class="btn btn-outline-success btn-sm">Subscribe B</button>
+          </div>
+          <div class="subscribers row">
+            <div class="col-6">
+              <b>Subscriber A:</b>
+              <ul class="list-group list-group-flush mb-2">
+                <li *ngFor="let m of replayMsgsA" class="list-group-item">{{m.content}}</li>
+                <li *ngIf="!replayMsgsA.length" class="list-group-item text-muted">No messages</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <b>Subscriber B:</b>
+              <ul class="list-group list-group-flush mb-2">
+                <li *ngFor="let m of replayMsgsB" class="list-group-item">{{m.content}}</li>
+                <li *ngIf="!replayMsgsB.length" class="list-group-item text-muted">No messages</li>
+              </ul>
+            </div>
+          </div>
+          <small class="text-muted d-block mt-2">
+            <i>ReplaySubject: Each new subscriber immediately receives the <b>last 3</b> messages, then all subsequent ones.</i>
+          </small>
         </div>
       </div>
-      <small>
-        <i>ReplaySubject: Each new subscriber immediately receives the <b>last 3</b> messages, then all subsequent ones.</i>
-      </small>
     </div>
   </div>
 </div>

@@ -1,0 +1,39 @@
+<h1>Kanban Board</h1>
+<!-- Add Task Form -->
+<form (ngSubmit)="addTask()" style="margin-bottom:1rem;">
+  <input [(ngModel)]="newTaskTitle" name="title" placeholder="Task Title" required>
+  <input [(ngModel)]="newTaskDesc" name="desc" placeholder="Description">
+  <select [(ngModel)]="newTaskStatus" name="status">
+    <option value="todo">To Do</option>
+    <option value="inprogress">In Progress</option>
+    <option value="done">Done</option>
+  </select>
+  <button type="submit">Add Task</button>
+</form>
+
+<div class="board">
+  <div class="column" *ngFor="let status of statuses">
+    <h2>
+      {{ status === 'todo' ? 'To Do' : status === 'inprogress' ? 'In Progress' : 'Done' }}
+    </h2>
+    <ul>
+      <!-- Use trackBy for performance -->
+      <li *ngFor="let task of getTasksByStatus(status); trackBy: trackByTaskId">
+        <div *ngIf="!task.editing">
+          <b>{{ task.title }}</b>
+          <p>{{ task.description }}</p>
+          <button (click)="moveTask(task, status === 'todo' ? 'inprogress' : status === 'inprogress' ? 'done' : 'todo')">
+            Move {{ status === 'todo' ? '→ In Progress' : status === 'inprogress' ? '→ Done' : '→ To Do' }}
+          </button>
+          <button (click)="removeTask(task)">Remove</button>
+          <button (click)="toggleEdit(task)">Edit</button>
+        </div>
+        <div *ngIf="task.editing">
+          <input [(ngModel)]="task.title" />
+          <input [(ngModel)]="task.description" />
+          <button (click)="toggleEdit(task)">Save</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

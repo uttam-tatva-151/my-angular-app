@@ -1,40 +1,76 @@
+body {
+  background: #f8fafc !important;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
 .container {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 1.5rem;
+  max-width: 1000px;
 }
-.column {
-  flex: 1;
-  padding: 1rem;
-  border-radius: 8px;
-  background: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid #e8eaf1;
+  background: #fff;
 }
-h2 {
-  color: #2962ff;
+
+.card-title {
+  letter-spacing: 0.01em;
 }
-ul {
-  list-style: none;
-  padding: 0;
+
+hr {
+  margin: 2.5rem 0;
+  border-top: 2px solid #eee;
 }
-li {
+
+ul.list-group {
   margin-bottom: 0.5rem;
 }
-button {
-  margin-left: 1rem;
-  background: #2962ff;
-  color: #fff;
+
+.list-group-item {
   border: none;
-  border-radius: 3px;
-  padding: 2px 10px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.15s;
+  border-bottom: 1px solid #f2f2f2;
+  transition: background 0.2s;
 }
-button:hover {
-  background: #0039cb;
+
+.list-group-item:last-child {
+  border-bottom: none;
 }
-hr {
-  margin: 2rem 0 1rem 0;
+
+.list-group-item:hover {
+  background: #f0f4fa;
+}
+
+/* Button tweaks */
+.btn-outline-success, .btn-outline-danger {
+  min-width: 90px;
+  font-size: 0.9rem;
+}
+
+.badge {
+  font-size: 0.95em;
+  padding: 0.4em 0.7em;
+  font-weight: 500;
+}
+
+.text-success {
+  color: #26890d !important;
+}
+
+.text-primary {
+  color: #2563eb !important;
+}
+
+.bg-light {
+  background-color: #f6f9fb !important;
+}
+
+.card.bg-light {
+  border: 1px solid #e7eaf3;
+}
+
+/* Responsive columns */
+@media (max-width: 767.98px) {
+  .row > [class^="col-"] {
+    margin-bottom: 1.5rem;
+  }
 }

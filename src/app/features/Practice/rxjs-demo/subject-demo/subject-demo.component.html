@@ -1,11 +1,29 @@
-<div class="subject-demo">
-  <h3>Subject Demo</h3>
-  <input #user type="text" placeholder="User" />
-  <input #msg type="text" placeholder="Message" />
-  <button (click)="send(user.value, msg.value)">Send</button>
-  <ul>
-    <li *ngFor="let m of messages">
-      <b>{{m.user}}</b>: {{m.content}} <small>({{m.timestamp | date:'shortTime'}})</small>
-    </li>
-  </ul>
+<div class="subject-demo container my-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h3 class="text-primary">Subject Demo</h3>
+    </div>
+  </div>
+  <div class="card shadow-sm p-3 mb-4">
+    <div class="row g-2 mb-3">
+      <div class="col-md-4 col-sm-6">
+        <input #user type="text" class="form-control" placeholder="User" />
+      </div>
+      <div class="col-md-5 col-sm-6">
+        <input #msg type="text" class="form-control" placeholder="Message" />
+      </div>
+      <div class="col-md-3 col-12">
+        <button (click)="send(user.value, msg.value)" class="btn btn-success w-100">Send</button>
+      </div>
+    </div>
+    <ul class="list-group mb-0">
+      <li *ngFor="let m of messages" class="list-group-item d-flex justify-content-between align-items-center">
+        <span>
+          <b>{{m.user}}</b>: {{m.content}}
+        </span>
+        <small class="text-muted">({{m.timestamp | date:'shortTime'}})</small>
+      </li>
+      <li *ngIf="!messages.length" class="list-group-item text-muted">No messages yet.</li>
+    </ul>
+  </div>
 </div>

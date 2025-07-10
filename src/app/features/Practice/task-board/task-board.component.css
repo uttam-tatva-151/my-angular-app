@@ -1,0 +1,217 @@
+/* General Reset and Body Styling */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 2rem 0;
+  color: #1a202c;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2b6cb0;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 8px rgba(43, 108, 176, 0.08);
+}
+
+/* Add Task Form */
+form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px 0 rgba(44, 62, 80, 0.07);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form input, form select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #bcd0ee;
+  font-size: 1rem;
+  outline: none;
+  background: #f7fafc;
+  transition: border-color 0.2s;
+}
+form input:focus, form select:focus {
+  border-color: #3182ce;
+}
+
+form button[type="submit"] {
+  background: #3182ce;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(49,130,206,0.10);
+}
+form button[type="submit"]:hover {
+  background: #265a9c;
+}
+
+/* Kanban Board Layout */
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+}
+
+.column {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px 0 rgba(49,130,206,0.08);
+  padding: 1.2rem 1rem 2rem 1rem;
+  min-width: 300px;
+  width: 330px;
+  flex: 1 1 330px;
+  transition: box-shadow 0.2s;
+}
+
+.column:hover {
+  box-shadow: 0 6px 24px 0 rgba(49,130,206,0.15);
+}
+
+.column h2 {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #3182ce;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: #f1f8ff;
+  border-left: 6px solid #2b6cb0;
+  border-radius: 8px;
+  margin-bottom: 1.1rem;
+  padding: 1rem 0.9rem 0.9rem 1.1rem;
+  box-shadow: 0 1px 6px rgba(49,130,206,0.07);
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+li:hover {
+  background: #dbeafe;
+  box-shadow: 0 2px 10px rgba(49,130,206,0.11);
+}
+
+/* Task Details */
+li b {
+  font-size: 1.1rem;
+  color: #1a365d;
+}
+
+li p {
+  margin: 0.3rem 0 0.7rem 0;
+  color: #2a4365;
+  font-size: 0.96rem;
+  font-style: italic;
+}
+
+/* Task Action Buttons */
+li button {
+  background: #e2e8f0;
+  color: #2b6cb0;
+  border: none;
+  padding: 0.33rem 1rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.2rem;
+  transition: background 0.15s, color 0.15s;
+  outline: none;
+}
+
+li button:last-child {
+  margin-right: 0;
+}
+
+li button:hover {
+  background: #3182ce;
+  color: #fff;
+}
+
+li button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Edit Mode Inputs */
+li input[type="text"], li input[type="text"]:focus,
+li input[type="input"], li input[type="input"]:focus {
+  width: 90%;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #bcd0ee;
+  background: #f7fafc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+li input[type="text"]:focus, li input[type="input"]:focus {
+  border-color: #3182ce;
+}
+
+@media (max-width: 1050px) {
+  .board {
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+  .column {
+    min-width: 250px;
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 700px) {
+  .board {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding: 0;
+  }
+  .column {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  form {
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1rem;
+  }
+}
