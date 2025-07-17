@@ -1,0 +1,94 @@
+<div class="w-75 mx -5 d-flex justify-content-center flex-column align-self-auto">
+<h2>User List</h2>
+<app-list
+  [items]="users"
+  [loading]="loading"
+  [error]="error"
+  [selectedItem]="selectedUser"
+  [itemTemplate]="userTemplate"
+  (itemSelected)="onUserSelected($event)"
+  (itemClicked)="onUserClicked($event)">
+</app-list>
+<ng-template #userTemplate let-user>
+  <div class="list-item user-list-item">
+    <div class="avatar">{{ user.name[0] }}</div>
+    <div class="details">
+      <div class="title">{{ user.name }}</div>
+      <div class="subtitle">{{ user.email }}</div>
+    </div>
+  </div>
+</ng-template>
+
+<h2>Product List</h2>
+<app-list
+  [items]="products"
+  [selectedItem]="selectedProduct"
+  [itemTemplate]="productTemplate"
+  (itemSelected)="onProductSelected($event)"
+  (itemClicked)="onProductClicked($event)">
+</app-list>
+<ng-template #productTemplate let-product>
+  <div class="list-item product-list-item">
+    <div class="title">{{ product.name }}</div>
+    <div class="badge price-badge">${{ product.price }}</div>
+    <span class="chip" [ngClass]="{instock: product.inStock, outstock: !product.inStock}">
+      {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+    </span>
+  </div>
+</ng-template>
+
+<h2>Fruit List</h2>
+<app-list
+  [items]="fruits"
+  [selectedItem]="selectedFruit"
+  [itemTemplate]="fruitTemplate"
+  (itemSelected)="onFruitSelected($event)"
+  (itemClicked)="onFruitClicked($event)">
+</app-list>
+<ng-template #fruitTemplate let-fruit let-idx="index">
+  <div class="list-item fruit-list-item">
+    <span class="emoji">{{ idx === 0 ? '🍏' : idx === 1 ? '🍌' : '🥭' }}</span>
+    <span class="title">{{ fruit }}</span>
+  </div>
+</ng-template>
+
+<h2>Task List</h2>
+<app-list
+  [items]="tasks"
+  [selectedItem]="selectedTask"
+  [itemTemplate]="taskTemplate"
+  (itemSelected)="onTaskSelected($event)"
+  (itemClicked)="onTaskClicked($event)">
+</app-list>
+<ng-template #taskTemplate let-task>
+  <div class="list-item task-list-item" [class.done]="task.status === 'Done'">
+    <div class="title">{{ task.title }}</div>
+    <span class="chip" [ngClass]="{done: task.status === 'Done', pending: task.status !== 'Done'}">
+      {{ task.status }}
+    </span>
+    <div class="progress-bar" [style.width]="task.status === 'Done' ? '100%' : '40%'"></div>
+  </div>
+</ng-template>
+
+<h2>Notification List</h2>
+<app-list
+  [items]="notifications"
+  [selectedItem]="selectedNotification"
+  [itemTemplate]="notificationTemplate"
+  (itemSelected)="onNotificationSelected($event)"
+  (itemClicked)="onNotificationClicked($event)">
+</app-list>
+<ng-template #notificationTemplate let-notification>
+  <div class="list-item notification-list-item" [ngClass]="notification.type">
+    <span class="icon">
+      <ng-container [ngSwitch]="notification.type">
+        <span *ngSwitchCase="'info'">ℹ️</span>
+        <span *ngSwitchCase="'error'">❌</span>
+        <span *ngSwitchCase="'success'">✅</span>
+        <span *ngSwitchDefault>🔔</span>
+      </ng-container>
+    </span>
+    <span class="title">{{ notification.message }}</span>
+    <button class="dismiss-btn" (click)="$event.stopPropagation(); onNotificationClicked(notification)">✖</button>
+  </div>
+</ng-template></div>

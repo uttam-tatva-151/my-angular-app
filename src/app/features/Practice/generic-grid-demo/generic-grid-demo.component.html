@@ -1,0 +1,114 @@
+<!-- Edge Case: Empty grid -->
+<h2>Empty User Grid</h2>
+<app-grid
+  [columns]="emptyUserColumns"
+  [items]="emptyUsers">
+</app-grid>
+
+<!-- Edge Case: Loading grid -->
+<h2>Loading Grid</h2>
+<button (click)="simulateLoading()">Simulate Loading</button>
+<app-grid
+  [columns]="emptyUserColumns"
+  [items]="loadingUsers"
+  [loading]="loading">
+</app-grid>
+
+<!-- Edge Case: Error grid -->
+<h2>Error Grid</h2>
+<app-grid
+  [columns]="errorUserColumns"
+  [items]="errorUsers"
+  [error]="error">
+</app-grid>
+
+<!-- Edge Case: Incomplete fields -->
+<h2>Incomplete Data Grid</h2>
+<app-grid
+  [columns]="incompleteUserColumns"
+  [items]="incompleteUsers">
+</app-grid>
+
+<!-- Edge Case: Mixed types -->
+<h2>Mixed Data Grid</h2>
+<app-grid
+  [columns]="mixedColumns"
+  [items]="mixedItems">
+</app-grid>
+
+<!-- Example 1: User grid with avatar cell -->
+<h2>User Grid</h2>
+<app-grid
+  [columns]="userColumns"
+  [items]="users"
+  [selectedRow]="selectedUser"
+  (rowSelected)="onUserRowSelected($event)"
+  (cellClicked)="onUserCellClicked($event)">
+</app-grid>
+<ng-template #avatarCell let-user>
+  <div class="avatar">{{ user.name?.[0] || '?' }}</div>
+</ng-template>
+
+<!-- Example 2: Product grid with custom stock cell -->
+<h2>Product Grid</h2>
+<app-grid
+  [columns]="productColumns"
+  [items]="products"
+  [selectedRow]="selectedProduct"
+  (rowSelected)="onProductRowSelected($event)"
+  (cellClicked)="onProductCellClicked($event)">
+</app-grid>
+<ng-template #stockCell let-product>
+  <span [class.instock]="product.inStock" [class.outstock]="!product.inStock">
+    {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+  </span>
+</ng-template>
+
+<!-- Example 3: Task grid with status color -->
+<h2>Task Grid</h2>
+<app-grid
+  [columns]="taskColumns"
+  [items]="tasks"
+  [selectedRow]="selectedTask"
+  (rowSelected)="onTaskRowSelected($event)"
+  (cellClicked)="onTaskCellClicked($event)">
+</app-grid>
+<ng-template #statusCell let-task>
+  <span class="chip" [ngClass]="{done: task.status === 'Done', pending: task.status !== 'Done'}">
+    {{ task.status }}
+  </span>
+</ng-template>
+
+<!-- Example 4: Notification grid with icon -->
+<h2>Notification Grid</h2>
+<app-grid
+  [columns]="notificationColumns"
+  [items]="notifications"
+  [selectedRow]="selectedNotification"
+  (rowSelected)="onNotificationRowSelected($event)"
+  (cellClicked)="onNotificationCellClicked($event)">
+</app-grid>
+<ng-template #typeCell let-notification>
+  <span class="icon">
+    <ng-container [ngSwitch]="notification.type">
+      <span *ngSwitchCase="'info'">ℹ️</span>
+      <span *ngSwitchCase="'error'">❌</span>
+      <span *ngSwitchCase="'success'">✅</span>
+      <span *ngSwitchDefault>🔔</span>
+    </ng-container>
+  </span>
+</ng-template>
+
+<!-- Example 5: Fruit grid with emoji -->
+<h2>Fruit Grid</h2>
+<app-grid
+  [columns]="fruitColumns"
+  [items]="fruits"
+  [selectedRow]="selectedFruit"
+  (rowSelected)="onFruitRowSelected($event)"
+  (cellClicked)="onFruitCellClicked($event)">
+</app-grid>
+<ng-template #fruitCell let-fruit let-idx="index">
+  <span class="emoji">{{ idx === 0 ? '🍏' : idx === 1 ? '🍌' : '🥭' }}</span>
+  <span class="title">{{ fruit.name }}</span>
+</ng-template>

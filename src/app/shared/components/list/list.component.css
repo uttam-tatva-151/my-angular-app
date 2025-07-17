@@ -1,0 +1,106 @@
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 9px;
+  background: #fff;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.18s;
+  cursor: pointer;
+  position: relative;
+}
+.list-item:hover {
+  box-shadow: 0 4px 16px rgba(0,123,255,0.09);
+  transform: scale(1.03);
+}
+
+.avatar {
+  background: linear-gradient(90deg,#0078d4,#00cfff);
+  color: #fff;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+.title { font-weight: 600; font-size: 1.05rem; }
+.subtitle { font-size: 0.97rem; color: #888; }
+
+.price-badge {
+  background: #e3f4ff;
+  color: #0078d4;
+  border-radius: 1rem;
+  padding: 0.3rem 0.7rem;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.chip {
+  padding: 0.23rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  margin-left: 0.7rem;
+  font-weight: 500;
+  background: #eee;
+}
+.chip.instock { background: #d4f7d4; color: #1b8f1b; }
+.chip.outstock { background: #ffe2e2; color: #d43f00; }
+.chip.done { background: #e3f4ff; color: #0078d4; }
+.chip.pending { background: #fff7d4; color: #d49700; }
+
+.fruit-list-item .emoji { font-size: 1.5rem; }
+.fruit-list-item .title { margin-left: 0.3rem; }
+
+.task-list-item { border-left: 5px solid #ffd700; }
+.task-list-item.done { border-left: 5px solid #0078d4; }
+.progress-bar {
+  height: 5px;
+  background: linear-gradient(90deg,#0078d4,#00cfff);
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  margin-left: 0;
+  width: 40%;
+  transition: width 0.3s;
+}
+.task-list-item.done .progress-bar { width: 100%; }
+
+.notification-list-item {
+  background: #e3f4ff;
+  align-items: center;
+  gap: 0.7rem;
+  padding-right: 3rem;
+}
+.notification-list-item.info { background: #e3f4ff; }
+.notification-list-item.error { background: #ffe2e2; }
+.notification-list-item.success { background: #d4f7d4; }
+.icon { font-size: 1.3rem; margin-right: 0.5rem; }
+
+.dismiss-btn {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.dismiss-btn:hover {
+  color: #d43f00;
+}
+
+@media (max-width: 600px) {
+  .list-item { padding: 0.7rem 0.8rem; font-size: 0.97rem; }
+  .avatar { width: 1.6rem; height: 1.6rem; font-size: 0.98rem; }
+  .badge, .chip { font-size: 0.93rem; padding: 0.18rem 0.6rem; }
+}

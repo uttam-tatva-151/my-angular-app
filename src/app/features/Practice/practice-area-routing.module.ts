@@ -7,6 +7,8 @@ import { TaskBoardComponent } from './task-board/task-board.component';
 import { PortfolioParentComponent } from './portfoliyo-parent-module/portfoliyo-parent-module.component';
 import { ContactParentComponent } from './contact-parent/contact-parent.component';
 import { ToDoComponent } from './to-do/to-do.component';
+import { GenericListDemoComponent } from './generic-list-demo/generic-list-demo.component';
+import { GenericGridDemoComponent } from './generic-grid-demo/generic-grid-demo.component';
 
 export const practiceAreaRoutes: Routes = [
   {
@@ -19,7 +21,9 @@ export const practiceAreaRoutes: Routes = [
       { path: 'track-by', component: TaskBoardComponent},
       { path: 'change-detection', component: PortfolioParentComponent},
       { path: 'change-detection-with-contacts', component: ContactParentComponent},
-      { path: 'change-detection-with-to-do', component: ToDoComponent}
+      { path: 'change-detection-with-to-do', component: ToDoComponent},
+      { path: 'generic-list', component: GenericListDemoComponent},
+      { path: 'generic-grid', component: GenericGridDemoComponent}
     ]
   }
 ];

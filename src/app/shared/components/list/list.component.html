@@ -1,0 +1,19 @@
+<div *ngIf="error; else mainContent" class="list-error">{{ error }}</div>
+<ng-template #mainContent>
+  <div *ngIf="loading" class="list-loading">Loading...</div>
+  <div *ngIf="!loading && items?.length === 0" class="list-empty">No items found.</div>
+  <ul *ngIf="!loading && (items?.length ?? 0) > 0" class="list-ul">
+    <ng-container *ngFor="let item of items; let idx = index">
+      <li
+        (click)="onItemClick(item); selectItem(item)"
+        [class.selected]="isSelected(item)">
+        <ng-container
+          *ngTemplateOutlet="itemTemplate ? itemTemplate : defaultTemplate; context: { $implicit: item, index: idx }">
+        </ng-container>
+      </li>
+    </ng-container>
+  </ul>
+  <ng-template #defaultTemplate let-item>
+    {{ item | json }}
+  </ng-template>
+</ng-template>

@@ -31,5 +31,11 @@ export class PracticeAreaComponent {
   toChangeDetection(){
     this.router.navigate(['/practice-area/change-detection-with-to-do']);
   }
+  toGenericList(){
+    this.router.navigate(['/practice-area/generic-list']);
+  }
+  toGenericGrid(){
+    this.router.navigate(['/practice-area/generic-grid']);
+  }
 
 }

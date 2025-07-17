@@ -1,0 +1,26 @@
+<div *ngIf="error; else mainContent" class="grid-error">{{ error }}</div>
+<ng-template #mainContent>
+  <div *ngIf="loading" class="grid-loading">Loading...</div>
+  <div *ngIf="!loading && items?.length === 0" class="grid-empty">No data found.</div>
+  <table *ngIf="!loading && items.length > 0" class="grid-table">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns" [style.width]="col.width">{{ col.header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items"
+          [class.selected]="isSelected(item)"
+          (click)="selectRow(item)">
+        <td *ngFor="let col of columns" (click)="$event.stopPropagation(); onCellClick(item, col)">
+          <ng-container *ngIf="col.cellTemplate; else defaultCell"
+                        [ngTemplateOutlet]="col.cellTemplate"
+                        [ngTemplateOutletContext]="{ $implicit: item, col: col }"></ng-container>
+          <ng-template #defaultCell>
+            {{ item[col.field] }}
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
