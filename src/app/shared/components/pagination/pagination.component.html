@@ -1,0 +1,13 @@
+<nav *ngIf="totalPages > 1">
+  <ul class="pagination">
+    <li [class.disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+      <span>«</span>
+    </li>
+    <li *ngFor="let page of pages" [class.active]="page === currentPage" (click)="onPageChange(page)">
+      <span>{{ page }}</span>
+    </li>
+    <li [class.disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">
+      <span>»</span>
+    </li>
+  </ul>
+</nav>

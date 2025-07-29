@@ -1,0 +1,21 @@
+<div class="tabs-container" [ngClass]="[tabType, uniqueDesign ? 'ultra-tabs' : '']">
+  <div class="tab-list" role="tablist">
+    <div
+      *ngFor="let tab of tabs.toArray(); let i = index"
+      class="tab-item"
+      [class.active]="tab.active"
+      [class.disabled]="tab.disabled"
+      (click)="!tab.disabled && selectTab(i)"
+      role="tab"
+      [attr.aria-selected]="tab.active"
+      [attr.tabindex]="tab.active ? 0 : -1"
+    >
+      <ng-container *ngIf="tab.icon">
+        <i [class]="tab.icon"></i>
+      </ng-container>
+      {{tab.label}}
+    </div>
+    <div class="tab-indicator" *ngIf="tabType === 'line' && uniqueDesign" [style.left]="selectedIdx * 120 + 'px'"></div>
+  </div>
+  <ng-content></ng-content>
+</div>

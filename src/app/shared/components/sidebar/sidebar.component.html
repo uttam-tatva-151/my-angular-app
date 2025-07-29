@@ -1,0 +1,81 @@
+<aside [ngClass]="['sidebar', config.theme, collapsed ? 'collapsed' : '']"
+       [style.width]="collapsed ? '60px' : config.width"
+       [attr.aria-label]="config.ariaLabel"
+       [attr.data-testid]="config.testingId">
+  <!-- Header -->
+  <div class="sidebar-header" *ngIf="config.header">
+    <img *ngIf="config.header.logoUrl" [src]="config.header.logoUrl" class="sidebar-logo" />
+    <span *ngIf="!collapsed && config.header.title">{{ config.header.title }}</span>
+    <div *ngIf="!collapsed && config.header.user" class="sidebar-user">
+      <img [src]="config.header.user.avatarUrl" class="sidebar-avatar" />
+      <span>{{ config.header.user.name }}</span>
+      <span *ngIf="config.header.user.role">({{ config.header.user.role }})</span>
+    </div>
+    <ng-container *ngIf="config.header.customTemplate">
+      <!-- Insert custom header template here -->
+    </ng-container>
+  </div>
+  <!-- Menu -->
+  <nav class="sidebar-menu">
+    <ng-container *ngFor="let item of menu">
+      <ng-container *ngIf="canShow(item)">
+        <div *ngIf="item.type === 'divider'" class="sidebar-divider"></div>
+        <div *ngIf="item.type === 'heading'" class="sidebar-heading" [ngClass]="item.customClass">{{ item.label }}</div>
+        <a *ngIf="item.type === 'link'"
+           [routerLink]="item.route"
+           [href]="item.externalUrl"
+           [target]="item.target"
+           [attr.aria-label]="item.ariaLabel"
+           [ngClass]="getLinkClass(item)"
+           [ngStyle]="item.customStyle"
+           (click)="handleLinkClick(item, $event)">
+          <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          <span *ngIf="!collapsed">{{ item.label }}</span>
+          <span *ngIf="item.badge" class="badge" [ngClass]="item.badgeColor">{{ item.badge }}</span>
+        </a>
+        <div *ngIf="item.type === 'dropdown'" class="sidebar-dropdown" [ngClass]="item.customClass">
+          <div class="dropdown-header" (click)="item.expanded = !item.expanded">
+            <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+            <span *ngIf="!collapsed">{{ item.label }}</span>
+            <span class="dropdown-arrow">{{ item.expanded ? '▼' : '▶' }}</span>
+          </div>
+          <div class="dropdown-menu" *ngIf="item.expanded">
+            <ng-container *ngFor="let child of item.children">
+              <ng-container *ngIf="canShow(child)">
+                <a *ngIf="child.type === 'link'"
+                   [routerLink]="child.route"
+                   [href]="child.externalUrl"
+                   [target]="child.target"
+                   [attr.aria-label]="child.ariaLabel"
+                   [ngClass]="getLinkClass(child)"
+                   [ngStyle]="child.customStyle"
+                   (click)="handleLinkClick(child, $event)">
+                  <mat-icon *ngIf="child.icon">{{ child.icon }}</mat-icon>
+                  <span *ngIf="!collapsed">{{ child.label }}</span>
+                  <span *ngIf="child.badge" class="badge" [ngClass]="child.badgeColor">{{ child.badge }}</span>
+                </a>
+                <div *ngIf="child.type === 'divider'" class="sidebar-divider"></div>
+                <div *ngIf="child.type === 'heading'" class="sidebar-heading" [ngClass]="child.customClass">{{ child.label }}</div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <ng-container *ngIf="item.type === 'custom' && item.customTemplate">
+          <!-- Custom template rendering, could use ngTemplateOutlet or render HTML -->
+          <span [innerHTML]="item.customTemplate"></span>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </nav>
+  <!-- Footer -->
+  <div class="sidebar-footer" *ngIf="config.footer">
+    <span *ngIf="!collapsed">{{ config.footer.content }}</span>
+    <ng-container *ngIf="config.footer.customTemplate">
+      <!-- Insert custom footer template here -->
+    </ng-container>
+  </div>
+  <!-- Collapse Toggle Button -->
+  <button class="sidebar-toggle" (click)="toggleCollapse()">
+    {{ collapsed ? '→' : '←' }}
+  </button>
+</aside>

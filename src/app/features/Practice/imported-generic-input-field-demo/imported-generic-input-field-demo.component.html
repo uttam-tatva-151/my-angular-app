@@ -1,0 +1,23 @@
+<div class="demo-container">
+  <h2>Generic Form Demo</h2>
+  <form [formGroup]="form" (ngSubmit)="submitForm()" autocomplete="off">
+    <div *ngFor="let config of inputConfigs" class="demo-field">
+      <lib-generic-input
+        [config]="config"
+        (valueChange)="onValueChange(config.id ?? '', $event)">
+      </lib-generic-input>
+      <div *ngIf="form.get(config.id ?? '')?.invalid && form.get(config.id ?? '')?.touched" class="error">
+        <span *ngIf="form.get(config.id ?? '')?.errors?.['required']">Required field.</span>
+        <span *ngIf="form.get(config.id ?? '')?.errors?.['minlength']">Minimum length not met.</span>
+        <span *ngIf="form.get(config.id ?? '')?.errors?.['maxlength']">Maximum length exceeded.</span>
+        <span *ngIf="form.get(config.id ?? '')?.errors?.['pattern']">Invalid format.</span>
+        <span *ngIf="form.get(config.id ?? '')?.errors?.['email']">Invalid email address.</span>
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+    <div class="demo-value" *ngIf="form.dirty || form.touched">
+      <strong>Form Value:</strong>
+      <pre>{{ form.value | json }}</pre>
+    </div>
+  </form>
+</div>

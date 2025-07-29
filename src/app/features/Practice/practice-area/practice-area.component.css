@@ -8,3 +8,11 @@
   justify-content: center;
   align-items: center;
 }
+.light-theme-demo {
+  background: linear-gradient(90deg, #f7fafc 0%, #d4eaf7 100%);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}

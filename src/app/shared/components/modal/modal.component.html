@@ -1,0 +1,14 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+  <div class="modal-dialog animate-in" [style.width]="width" [ngClass]="customClass" (click)="$event.stopPropagation()">
+    <div class="modal-header" *ngIf="title || showClose">
+      <span class="modal-title" *ngIf="title">{{title}}</span>
+      <button *ngIf="showClose" class="modal-close" (click)="closeModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-footer" *ngIf="showFooter">
+      <ng-template [ngTemplateOutlet]="footerTemplate"></ng-template>
+    </div>
+  </div>
+</div>

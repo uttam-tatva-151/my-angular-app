@@ -1,0 +1,27 @@
+<button (click)="isModal1 = true">Open Basic Modal</button>
+<button (click)="isModal2 = true">Open Modal with Custom Width</button>
+<button (click)="isModal3 = true">Open Modal without Close</button>
+<button (click)="isModal4 = true">Open Modal with Footer</button>
+
+<app-modal [isOpen]="isModal1" title="Ultra Modal">
+  <p>This is a basic ultra-styled modal with a glass effect and animated border.</p>
+</app-modal>
+
+<app-modal [isOpen]="isModal2" title="Wide Modal" [width]="'750px'">
+  <p>This modal is wider than default and shows how size can be adjusted.</p>
+</app-modal>
+
+<app-modal [isOpen]="isModal3" title="No Close Button" [showClose]="false">
+  <div>
+    <h3>Strict Modal</h3>
+    <p>Modal cannot be closed by button, only by clicking overlay or ESC.</p>
+  </div>
+</app-modal>
+
+<app-modal [isOpen]="isModal4" title="Modal with Footer">
+  <p>This modal demonstrates a footer slot with custom actions.</p>
+  <ng-container footer>
+    <button class="btn btn-accent" (click)="isModal4 = false">Accept</button>
+    <button class="btn btn-outline" (click)="isModal4 = false">Cancel</button>
+  </ng-container>
+</app-modal>

@@ -17,6 +17,27 @@
       <app-btn-submit (click)="toGenericList()" label="Generic List" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
       <app-btn-submit (click)="toGenericGrid()" label="Generic Grid" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
     </div>
+    <div class="row d-flex flex-nowrap gap-2 justify-content-center">
+      <app-btn-submit (click)="toGenericPaginationAndFilters()" label="Generic Pagination & Filters" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+      <app-btn-submit (click)="toGenericModal()" label="Generic Modal" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+      <app-btn-submit (click)="toGenericTab()" label="Generic Tab" btnClass="btn submitBtn p-3" type="submit"></app-btn-submit>
+    </div>
+    <div class="row d-flex flex-nowrap gap-2 justify-content-center">
+      <div class="light-theme-demo">
+        <lib-generic-button
+          [config]="getButtonConfig()"
+          (do)="onAction($event)">
+        </lib-generic-button>
+      </div>
+    </div>
+    <div class="row d-flex flex-nowrap gap-2 justify-content-center">
+      <div class="light-theme-demo">
+        <lib-generic-button
+          [config]="getButtonConfig()"
+          (do)="showSidebar($event)">
+        </lib-generic-button>
+      </div>
+    </div>
   </nav>
   <div class="flipContainer w-100" id="flipContainer">
     <div class="flipper">

@@ -1,0 +1,79 @@
+<!-- Example 1: Simple Search and Pagination -->
+<section>
+  <h2>Example 1: Simple Search & Pagination</h2>
+  <app-filter
+    [filters]="[{ key: 'search', label: 'Search by name', type: 'text' }]"
+    [sortOptions]="[]"
+    (filterChange)="onFilterChange($event, 1)">
+  </app-filter>
+  <app-pagination
+    [totalItems]="totalItems1"
+    [pageSize]="8"
+    [currentPage]="currentPage1"
+    (pageChange)="onPageChange($event, 1)">
+  </app-pagination>
+</section>
+
+<!-- Example 2: Select, Checkbox, and Sort -->
+<section>
+  <h2>Example 2: Select, Checkbox & Sorting</h2>
+  <app-filter
+    [filters]="[
+      { key: 'role', label: 'Role', type: 'select', options: [{label:'Admin', value:'admin'},{label:'User', value:'user'}] },
+      { key: 'active', label: 'Active Only', type: 'checkbox' }
+    ]"
+    [sortOptions]="[
+      { label: 'Created Date', value: 'created' },
+      { label: 'Name', value: 'name' }
+    ]"
+    (filterChange)="onFilterChange($event, 2)">
+  </app-filter>
+  <app-pagination
+    [totalItems]="totalItems2"
+    [pageSize]="4"
+    [currentPage]="currentPage2"
+    (pageChange)="onPageChange($event, 2)">
+  </app-pagination>
+</section>
+
+<!-- Example 3: Multiple Filters and Large Pagination -->
+<section>
+  <h2>Example 3: Multiple Filters & Large Pagination</h2>
+  <app-filter
+    [filters]="[
+      { key: 'department', label: 'Department', type: 'select', options: [{label:'HR', value:'hr'},{label:'IT', value:'it'},{label:'Finance', value:'finance'}] },
+      { key: 'status', label: 'Status', type: 'select', options: [{label:'Active', value:'active'},{label:'Inactive', value:'inactive'}] },
+      { key: 'search', label: 'Search', type: 'text' }
+    ]"
+    [sortOptions]="[
+      { label: 'Newest', value: 'newest' },
+      { label: 'Oldest', value: 'oldest' }
+    ]"
+    (filterChange)="onFilterChange($event, 3)">
+  </app-filter>
+  <app-pagination
+    [totalItems]="totalItems3"
+    [pageSize]="10"
+    [currentPage]="currentPage3"
+    (pageChange)="onPageChange($event, 3)">
+  </app-pagination>
+</section>
+
+<!-- Example 4: No Results (Edge Case for Pagination) -->
+<section>
+  <h2>Example 4: No Results</h2>
+  <app-filter
+    [filters]="[{ key: 'search', label: 'Search', type: 'text' }]"
+    [sortOptions]="[]"
+    (filterChange)="onFilterChange($event, 4)">
+  </app-filter>
+  <app-pagination
+    [totalItems]="totalItems4"
+    [pageSize]="10"
+    [currentPage]="currentPage4"
+    (pageChange)="onPageChange($event, 4)">
+  </app-pagination>
+  <div *ngIf="totalItems4 === 0" style="margin-top: 1rem; color: #b71c1c; font-weight: bold;">
+    No results found.
+  </div>
+</section>

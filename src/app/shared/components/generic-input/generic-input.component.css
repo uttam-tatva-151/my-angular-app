@@ -1,0 +1,188 @@
+.gi-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+}
+.gi-label {
+  font-size: 1rem;
+  margin-bottom: 0.35em;
+  color: #5a5a7a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.gi-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 1em;
+  border: 2px solid #e7e8fd;
+  transition: border .22s, box-shadow .22s;
+  box-shadow: 0 2px 6px rgba(79,140,255,0.04);
+  position: relative;
+  padding: 0 0.75em;
+}
+.gi-input {
+  border: none;
+  background: transparent;
+  padding: 0.8em 0;
+  font-size: 1.09rem;
+  outline: none;
+  flex: 1 1 auto;
+  color: #2B3566;
+  font-family: inherit;
+  min-width: 0;
+}
+.gi-input:disabled, .gi-input[readonly] {
+  background: #fafbff;
+  color: #b6b6c7;
+  cursor: not-allowed;
+}
+.gi-icon {
+  display: flex;
+  align-items: center;
+  color: #4F8CFF;
+  cursor: pointer;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  margin: 0 0.25em;
+  transition: color .2s;
+}
+.gi-icon-left { margin-right: 0.3em; }
+.gi-icon-right { margin-left: 0.3em; }
+.gi-icon-toggle { margin-left: 0.3em; }
+
+.gi-help {
+  font-size: 0.91rem;
+  color: #7b8db0;
+  margin-top: 0.3em;
+  padding-left: 0.4em;
+  animation: gi-fadein 0.3s;
+}
+.gi-error-text {
+  color: #e53e3e;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 0.25em;
+  padding-left: 0.4em;
+  animation: gi-shake 0.25s;
+}
+.gi-error .gi-input-wrap { border-color: #e53e3e; }
+.gi-focused .gi-input-wrap {
+  border-color: #4F8CFF;
+  box-shadow: 0 0 0 2px #aad7ff55;
+}
+@keyframes gi-fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes gi-shake {
+  10%, 90% { transform: translateX(-2px);}
+  20%, 80% { transform: translateX(4px);}
+  30%, 50%, 70% { transform: translateX(-6px);}
+  40%, 60% { transform: translateX(6px);}
+}
+.gi-field.ripple .gi-input-wrap:focus-within {
+  animation: gi-ripple 0.24s;
+}
+@keyframes gi-ripple {
+  0% { box-shadow: 0 0 0 0 #4F8CFF33; }
+  100% { box-shadow: 0 0 0 8px #4F8CFF00; }
+}
+.gi-input::-webkit-input-placeholder { color: #b6b6c7; opacity: 1;}
+.gi-input::-moz-placeholder { color: #b6b6c7; opacity: 1;}
+.gi-input:-ms-input-placeholder { color: #b6b6c7; opacity: 1;}
+.gi-input::placeholder { color: #b6b6c7; opacity: 1;}
+
+.gi-checkbox, .gi-switch { width: 1.4em; height: 1.4em; margin: 0; }
+.gi-switch-ui {
+  position: absolute;
+  right: 1.2em; top: 50%; transform: translateY(-50%);
+  width: 2.5em; height: 1.2em;
+  background: #eee;
+  border-radius: 1em;
+  transition: background .2s;
+}
+.gi-switch-knob {
+  display: block;
+  width: 1em; height: 1em;
+  background: #fff;
+  border-radius: 1em;
+  box-shadow: 0 1px 4px #aad7ff55;
+  position: absolute;
+  top: 0.1em; left: 0.1em;
+  transition: left 0.18s, background .2s;
+}
+.gi-switch-on { left: 1.25em !important; background: #4F8CFF !important; }
+
+.gi-group {
+  display: flex;
+  gap: 1.2em;
+  flex-wrap: wrap;
+  margin: 0.4em 0 0.2em 0;
+}
+.gi-group-option {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.04em;
+}
+.gi-group-input {
+  position: absolute;
+  opacity: 0;
+  left: 0; top: 0; width: 100%; height: 100%;
+  margin: 0;
+}
+.gi-group-custom {
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 50%;
+  background: #f4f4fa;
+  border: 2px solid #e7e8fd;
+  margin-right: 0.5em;
+  position: relative;
+  transition: border 0.2s, background 0.2s;
+}
+.gi-group-input:checked + .gi-group-custom.radio {
+  border-color: #4F8CFF;
+  background: #e3f0ff;
+}
+.gi-group-input:checked + .gi-group-custom.checkbox {
+  border-color: #4F8CFF;
+  background: #4F8CFF;
+}
+.gi-group-custom.radio:after {
+  content: '';
+  display: block;
+  width: 0.55em; height: 0.55em;
+  background: #4F8CFF;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.19em; left: 0.19em;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+.gi-group-input:checked + .gi-group-custom.radio:after {
+  opacity: 1;
+}
+.gi-group-custom.checkbox:after {
+  content: '';
+  display: block;
+  width: 0.6em; height: 0.6em;
+  border: solid #fff;
+  border-width: 0 0.2em 0.2em 0;
+  border-radius: 0.1em;
+  position: absolute;
+  left: 0.28em; top: 0.13em;
+  transform: rotate(45deg) scale(0.7);
+  opacity: 0;
+  transition: opacity 0.18s;
+  background: none;
+}
+.gi-group-input:checked + .gi-group-custom.checkbox:after {
+  opacity: 1;
+}
+.gi-group-label { margin-left: 0.05em; }

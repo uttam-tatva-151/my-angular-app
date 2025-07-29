@@ -1,0 +1,259 @@
+<!-- Defensive rendering: only render if config exists and type is NOT hidden/button -->
+<div
+  *ngIf="config && config.type !== 'hidden' && config.type !== 'button'"
+  class="gi-field"
+  [ngClass]="[
+    config.className || '',
+    isFocused ? 'gi-focused' : '',
+    errorMessage ? 'gi-error' : '',
+    config.animation || ''
+  ]"
+  [ngStyle]="config.style"
+>
+  <!-- Label -->
+  <label *ngIf="config.label" [attr.for]="config.id" class="gi-label" [attr.title]="config.tooltip">{{ config.label }}</label>
+
+  <!-- Input wrapper - supports icon, prefix/suffix, password toggle -->
+  <div class="gi-input-wrap" *ngIf="!['radio', 'checkbox', 'select'].includes(config.type || '') || !config.multiple">
+    <!-- Left icon or prefix -->
+    <span *ngIf="config.iconLeft || config.prefixText" class="gi-icon gi-icon-left" (click)="handleIconClick('left', $event)">
+      <span *ngIf="config.iconLeft" [innerHTML]="config.iconLeft"></span>
+      <span *ngIf="config.prefixText">{{ config.prefixText }}</span>
+    </span>
+
+    <!-- Input types switch -->
+    <ng-container [ngSwitch]="config.type">
+      <!-- Textarea -->
+      <textarea
+        *ngSwitchCase="'textarea'"
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'textarea'"
+        [placeholder]="config.placeholder"
+        [attr.aria-label]="config.ariaLabel || config.label"
+        [attr.aria-describedby]="config.ariaDescribedBy"
+        [attr.autofocus]="config.autoFocus ? true : null"
+        [attr.autocomplete]="config.autoComplete"
+        [attr.spellcheck]="config.spellCheck"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        [attr.minlength]="config.minlength"
+        [attr.maxlength]="config.maxlength"
+        [ngModel]="config.value"
+        (ngModelChange)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        (keydown)="handleKeydown($event)"
+        class="gi-input"
+      ></textarea>
+
+      <!-- File input -->
+      <input
+        *ngSwitchCase="'file'"
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'file'"
+        type="file"
+        [attr.accept]="config.accept"
+        [attr.multiple]="config.multiple ? true : null"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        [attr.aria-label]="config.ariaLabel || config.label"
+        [attr.aria-describedby]="config.ariaDescribedBy"
+        (change)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-file"
+      />
+
+      <!-- Color input -->
+      <input
+        *ngSwitchCase="'color'"
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'color'"
+        type="color"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        [attr.aria-label]="config.ariaLabel || config.label"
+        [attr.aria-describedby]="config.ariaDescribedBy"
+        [ngModel]="config.value"
+        (ngModelChange)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-color"
+      />
+
+      <!-- Range input -->
+      <input
+        *ngSwitchCase="'range'"
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'range'"
+        type="range"
+        [min]="config.min ?? null"
+        [max]="config.max ?? null"
+        [step]="config.step ?? null"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        [ngModel]="config.value"
+        (ngModelChange)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-range"
+      />
+
+      <!-- Checkbox input -->
+      <input
+        *ngSwitchCase="'checkbox'"
+        #inputEl
+        type="checkbox"
+        [id]="config.id"
+        [name]="config.name ?? 'checkbox'"
+        [checked]="!!config.value"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        (change)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-checkbox"
+      />
+
+      <!-- Switch input (styled checkbox) -->
+      <input
+        *ngSwitchCase="'switch'"
+        #inputEl
+        type="checkbox"
+        [id]="config.id"
+        [name]="config.name ?? 'switch'"
+        [checked]="!!config.value"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        (change)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-switch"
+      />
+
+      <!-- Radio input -->
+      <input
+        *ngSwitchCase="'radio'"
+        #inputEl
+        type="radio"
+        [id]="config.id"
+        [name]="config.name ?? 'radio'"
+        [checked]="!!config.value"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        (change)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-radio"
+      />
+
+      <!-- Select input -->
+      <select
+        *ngSwitchCase="'select'"
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'select'"
+        [disabled]="config.disabled ?? false"
+        [required]="config.required ?? false"
+        [multiple]="config.multiple ?? false"
+        [ngModel]="config.value"
+        (ngModelChange)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        class="gi-input gi-select"
+      >
+        <option *ngFor="let opt of config.options" [value]="opt.value" [disabled]="opt.disabled">{{ opt.label }}</option>
+      </select>
+
+      <!-- All other types -->
+      <input
+        *ngSwitchDefault
+        #inputEl
+        [id]="config.id"
+        [name]="config.name ?? 'input'"
+        [type]="config.type === 'password' && showPassword ? 'text' : config.type"
+        [placeholder]="config.placeholder"
+        [attr.aria-label]="config.ariaLabel || config.label"
+        [attr.aria-describedby]="config.ariaDescribedBy"
+        [attr.autofocus]="config.autoFocus ? true : null"
+        [attr.autocomplete]="config.autoComplete"
+        [attr.spellcheck]="config.spellCheck"
+        [disabled]="config.disabled ?? false"
+        [readonly]="config.readonly ?? false"
+        [required]="config.required ?? false"
+        [min]="config.min ?? null"
+        [max]="config.max ?? null"
+        [attr.minlength]="config.minlength"
+        [attr.maxlength]="config.maxlength"
+        [pattern]="config.pattern ?? ''"
+        [step]="config.step ?? null"
+        [attr.inputmode]="config.inputMode ?? null"
+        [ngModel]="config.value"
+        (ngModelChange)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+        (keydown)="handleKeydown($event)"
+        class="gi-input"
+      />
+    </ng-container>
+
+    <!-- Password toggle icon -->
+    <span
+      *ngIf="config.type === 'password' && config.showPasswordToggle"
+      class="gi-icon gi-icon-toggle"
+      (click)="togglePassword()"
+      [innerHTML]="showPassword
+        ? '<svg width=18 height=18 fill=none stroke=%234F8CFF stroke-width=2><circle cx=9 cy=9 r=7/><path d=M4 9a5 5 0 0010 0 5 5 0 00-10 0z /></svg>'
+        : '<svg width=18 height=18 fill=none stroke=%234F8CFF stroke-width=2><circle cx=9 cy=9 r=7/><line x1=4 y1=4 x2=14 y2=14 /></svg>'">
+    </span>
+
+    <!-- Right icon or suffix -->
+    <span *ngIf="config.iconRight || config.suffixText" class="gi-icon gi-icon-right" (click)="handleIconClick('right', $event)">
+      <span *ngIf="config.iconRight" [attr.innerHTML]="config.iconRight"></span>
+      <span *ngIf="config.suffixText">{{ config.suffixText }}</span>
+    </span>
+  </div>
+
+  <!-- Group input: radio/checkbox/select with options -->
+  <div
+    *ngIf="(['radio', 'checkbox', 'select'].includes(config.type || '') && config.options?.length && config.multiple)"
+    class="gi-group" [ngClass]="config.groupOrientation || 'row'">
+    <label *ngFor="let opt of config.options; let i = index" class="gi-group-option">
+      <input
+        [type]="config.type"
+        [name]="config.name ?? config.type"
+        [disabled]="(config.disabled ?? false) || opt.disabled"
+        [checked]="isChecked(opt.value)"
+        (change)="handleInput($event, opt.value)"
+        class="gi-group-input"
+      />
+      <span class="gi-group-custom" [ngClass]="config.type"></span>
+      <span class="gi-group-label">{{ opt.label }}</span>
+    </label>
+  </div>
+
+  <!-- File preview (for file input, if filePreviewUrl provided) -->
+  <div *ngIf="config.type === 'file' && config.filePreviewUrl" class="gi-file-preview">
+    <img [src]="config.filePreviewUrl" alt="Preview" style="max-width: 120px; max-height: 120px; border-radius: 5px; margin-top: 6px;">
+  </div>
+
+  <!-- Loading spinner -->
+  <div *ngIf="config.loading || config.spinner" class="gi-spinner"></div>
+
+  <!-- Help text -->
+  <div class="gi-help" *ngIf="config.helpText && !errorMessage">{{ config.helpText }}</div>
+
+  <!-- Error text -->
+  <div class="gi-error-text" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

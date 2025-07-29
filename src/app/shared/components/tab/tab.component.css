@@ -1,0 +1,98 @@
+.tabs-container {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Ultra Tabs Styles */
+.tabs-container.ultra-tabs .tab-list {
+  background: #ece9fa;
+  border-radius: 14px 14px 0 0;
+  padding: 0 12px;
+  box-shadow: 0 2px 24px 0 rgba(110, 48, 241, 0.09);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  overflow-x: auto;
+}
+
+.tabs-container.ultra-tabs .tab-item {
+  padding: 14px 38px;
+  border-radius: 12px 12px 0 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #6e30f1;
+  cursor: pointer;
+  margin-right: 10px;
+  background: transparent;
+  transition: background 0.22s, color 0.22s, box-shadow 0.22s;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.65em;
+}
+
+.tabs-container.ultra-tabs .tab-item:hover:not(.disabled),
+.tabs-container.ultra-tabs .tab-item.active {
+  background: linear-gradient(90deg, #6e30f1 0%, #f14e7e 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px 0 rgba(241, 78, 126, 0.11);
+  transition: background 0.22s, color 0.22s;
+}
+
+.tabs-container.ultra-tabs .tab-item.disabled {
+  color: #b8aee9;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tabs-container.ultra-tabs .tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 5px;
+  width: 120px;
+  background: linear-gradient(90deg, #6e30f1 0%, #f14e7e 100%);
+  border-radius: 3px 3px 0 0;
+  transition: left 0.29s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+/* Pill Tabs */
+.tabs-container.pill .tab-list {
+  background: none;
+  box-shadow: none;
+}
+
+.tabs-container.pill .tab-item {
+  border-radius: 16px;
+  padding: 10px 32px;
+  margin: 0 7px;
+  font-size: 1rem;
+  background: #fff;
+  border: 2px solid #ece9fa;
+  color: #6e30f1;
+}
+
+.tabs-container.pill .tab-item.active {
+  background: linear-gradient(90deg, #6e30f1 0%, #f14e7e 100%);
+  color: #fff;
+  border-color: #f14e7e;
+}
+
+/* Card Tabs */
+.tabs-container.card .tab-item {
+  border-radius: 12px 12px 0 0;
+  border: 2px solid transparent;
+  background: #fff;
+  color: #6e30f1;
+  box-shadow: 0 2px 12px 0 rgba(110, 48, 241, 0.11);
+  margin: 0 3px;
+}
+
+.tabs-container.card .tab-item.active {
+  border-color: #6e30f1;
+  background: linear-gradient(90deg, #6e30f1 0%, #f14e7e 100%);
+  color: #fff;
+}
