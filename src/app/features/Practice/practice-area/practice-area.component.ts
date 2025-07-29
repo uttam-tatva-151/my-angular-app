@@ -25,7 +25,7 @@ export class PracticeAreaComponent {
 
   getButtonConfig(): GenericButtonModel {
     return {
-      label: 'Imported Generic Iput Fields Demo',
+      label: 'Imported Generic Components Demo',
       color: 'primary',
       size: 'large',
       rounded: true,
