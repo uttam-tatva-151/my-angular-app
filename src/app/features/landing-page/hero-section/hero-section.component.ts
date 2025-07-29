@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { PrimaryButtonComponent } from '../../../shared/components/Buttons/primary/primary.component';
 
 @Component({
@@ -8,62 +8,96 @@ import { PrimaryButtonComponent } from '../../../shared/components/Buttons/prima
   templateUrl: './hero-section.component.html',
   styleUrls: ['./hero-section.component.css']
 })
-export class HeroSectionComponent  {
+export class HeroSectionComponent implements OnDestroy {
 
-  @ViewChild('heroSubtitle', { static: true }) heroSubtitleElem!: ElementRef<HTMLSpanElement>;
+  // Property for template binding - displays the animated text
+  heroSubtitleDisplay: string = '';
 
-  private heroSubtitleText = 'Effortlessly track expenses, set budgets, and achieve your financial goals with ';
+  // Configuration for animation - making it easily configurable
+  private animationConfig = {
+    text: 'Effortlessly track expenses, set budgets, and achieve your financial goals with ',
+    typingSpeed: 60,
+    spaceDelay: 350,
+    pauseAfterTyping: 900,
+    pauseSteps: 7,
+    pauseStepDelay: 120,
+    erasingSpeed: 35,
+    pauseAfterErasing: 400,
+    pauseAfterErasing2Steps: 3
+  };
+
+  // Animation state properties - encapsulated for testability
   private subtitleIdx = 0;
   private subtitleState: 'typing' | 'pause' | 'erasing' | 'pause2' = 'typing';
   private subtitleDelay = 0;
+  
+  // Store timeout IDs for cleanup
+  private timeoutIds: number[] = [];
 
   ngAfterViewInit() {
     this.animateHeroSubtitle();
   }
 
+  ngOnDestroy() {
+    // Clear all timeouts to prevent memory leaks
+    this.timeoutIds.forEach(id => clearTimeout(id));
+    this.timeoutIds = [];
+  }
+
   private animateHeroSubtitle() {
-    const el = this.heroSubtitleElem.nativeElement;
     if (this.subtitleState === 'typing') {
-      if (this.subtitleIdx <= this.heroSubtitleText.length) {
-        el.textContent = this.heroSubtitleText.slice(0, this.subtitleIdx);
+      if (this.subtitleIdx <= this.animationConfig.text.length) {
+        // Update property instead of direct DOM manipulation
+        this.heroSubtitleDisplay = this.animationConfig.text.slice(0, this.subtitleIdx);
+        
         // typing speed: normal char = 60ms, space = 350ms
-        const currentChar = this.heroSubtitleText.charAt(this.subtitleIdx - 1);
-        let delay = 60;
+        const currentChar = this.animationConfig.text.charAt(this.subtitleIdx - 1);
+        let delay = this.animationConfig.typingSpeed;
         if (currentChar === ' ') {
-          delay = 350;
+          delay = this.animationConfig.spaceDelay;
         }
         this.subtitleIdx++;
-        setTimeout(() => this.animateHeroSubtitle(), delay);
+        
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), delay);
+        this.timeoutIds.push(timeoutId);
       } else {
         this.subtitleState = 'pause';
         this.subtitleDelay = 0;
-        setTimeout(() => this.animateHeroSubtitle(), 900);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), this.animationConfig.pauseAfterTyping);
+        this.timeoutIds.push(timeoutId);
       }
     } else if (this.subtitleState === 'pause') {
       this.subtitleDelay++;
-      if (this.subtitleDelay > 7) {
+      if (this.subtitleDelay > this.animationConfig.pauseSteps) {
         this.subtitleState = 'erasing';
-        setTimeout(() => this.animateHeroSubtitle(), 40);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), 40);
+        this.timeoutIds.push(timeoutId);
       } else {
-        setTimeout(() => this.animateHeroSubtitle(), 120);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), this.animationConfig.pauseStepDelay);
+        this.timeoutIds.push(timeoutId);
       }
     } else if (this.subtitleState === 'erasing') {
       if (this.subtitleIdx > 0) {
         this.subtitleIdx--;
-        el.textContent = this.heroSubtitleText.slice(0, this.subtitleIdx);
-        setTimeout(() => this.animateHeroSubtitle(), 35);
+        // Update property instead of direct DOM manipulation
+        this.heroSubtitleDisplay = this.animationConfig.text.slice(0, this.subtitleIdx);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), this.animationConfig.erasingSpeed);
+        this.timeoutIds.push(timeoutId);
       } else {
         this.subtitleState = 'pause2';
         this.subtitleDelay = 0;
-        setTimeout(() => this.animateHeroSubtitle(), 400);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), this.animationConfig.pauseAfterErasing);
+        this.timeoutIds.push(timeoutId);
       }
     } else if (this.subtitleState === 'pause2') {
       this.subtitleDelay++;
-      if (this.subtitleDelay > 3) {
+      if (this.subtitleDelay > this.animationConfig.pauseAfterErasing2Steps) {
         this.subtitleState = 'typing';
-        setTimeout(() => this.animateHeroSubtitle(), 60);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), 60);
+        this.timeoutIds.push(timeoutId);
       } else {
-        setTimeout(() => this.animateHeroSubtitle(), 120);
+        const timeoutId = setTimeout(() => this.animateHeroSubtitle(), this.animationConfig.pauseStepDelay);
+        this.timeoutIds.push(timeoutId);
       }
     }
   }
